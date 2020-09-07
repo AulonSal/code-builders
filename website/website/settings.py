@@ -11,16 +11,12 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+import website.config as CONFIG
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'o6wwpuvmus-)rr1(2+j4mi&!mf)q5*nw%_#a&6c_#3o=k^9k)s'
+SECRET_KEY = CONFIG.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -73,12 +69,19 @@ WSGI_APPLICATION = 'website.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': CONFIG.DATABASE_DEFAULT['NAME'],
+        'USER': CONFIG.DATABASE_DEFAULT['USER'],
+        'PASSWORD': CONFIG.DATABASE_DEFAULT['PASSWORD'],
+        'HOST': CONFIG.DATABASE_DEFAULT['HOST'],
+        'PORT': '',
     }
 }
+CONN_MAX_AGE = CONFIG.CONN_MAX_AGE
+
 
 
 # Password validation
@@ -103,9 +106,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 
@@ -118,3 +121,29 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'prod' / 'static'
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
+
+# Media settings
+MEDIA_ROOT = BASE_DIR / CONFIG.MEDIA_ROOT
+MEDIA_URL = CONFIG.MEDIA_URL
+
+# Email settings
+EMAIL_BACKEND = CONFIG.EMAIL_BACKEND
+EMAIL_HOST = CONFIG.EMAIL_HOST
+EMAIL_PORT = CONFIG.EMAIL_PORT
+EMAIL_HOST_USER = CONFIG.EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = CONFIG.EMAIL_HOST_PASSWORD
+EMAIL_USE_TLS = CONFIG.EMAIL_USE_TLS
+EMAIL_USE_SSL = CONFIG.EMAIL_USE_SSL
+
+# HTTPS/SSL only stuff
+CSRF_COOKIE_SECURE = CONFIG.CSRF_COOKIE_SECURE
+SESSION_COOKIE_SECURE = CONFIG.SESSION_COOKIE_SECURE
+
+
+# Logging
+LOGGING = CONFIG.LOGGING
+

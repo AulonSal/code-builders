@@ -134,7 +134,7 @@ dmypy.json
 
 
 # Website Config
-website/ccs_django/config.py
+website/website/config.py
 
 # Collected static files
 website/prod/static
@@ -142,3 +142,5 @@ website/prod/static
 # MacOS
 .DS_Store
 
+# Setup
+setup
