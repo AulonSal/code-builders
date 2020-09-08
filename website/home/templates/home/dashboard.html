@@ -1,0 +1,35 @@
+{% extends 'home/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+		<br>
+		<!--ShowCase-->
+		<header class="showcase" style="background: url({% static 'home/img/front-end-web-development.jpg' %}) no-repeat center center/cover;">
+			<img src = "{% static 'home/img/logo1.png' %}" height = "50%">
+			<h2>The Code Builder</h2>
+			<p>
+        		Formal description, inherit this.
+      		</p>
+      		<a href="#" class="btn">
+      			Announcements <i class="fas fa-chevron-right"></i>
+      		</a>
+		</header>
+		<br>
+		<div class = "subsec"><p>My Event Pass</p></div>
+		<br>
+		<hr>
+		<br>
+		<br>
+		<section class="xbox" style="background: url({% static 'home/img/xbox.png' %}) no-repeat center center/cover;">
+			<div class="content">
+				<h2>Event Pass</h2>
+		        <p>Buy our event pass!</p>
+		        <a href="#" class="btn">
+		            View Pass <i class="fas fa-chevron-right"></i>
+		        </a>
+			</div>
+		</section>
+
+{% endblock %}

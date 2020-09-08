@@ -1,0 +1,55 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" integrity="sha256-h20CPZ0QyXlBuAw7A+KluUYx/3pK+c7lYEpqLTlxjYQ=" crossorigin="anonymous" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="{% static 'home/css/style.css' %}">
+	<link rel="shortcut icon" type="image/png" href="{% static 'home/img/icon.ico' %}"/>
+	<title>The Code Builder</title>
+</head>
+<body>
+	<div class="menu-btn">
+    <i class="fas fa-bars fa-2x"></i>
+    </div>
+	<div class="container" style = "padding: 0px">
+
+		<!--NAV BAR-->
+		<nav class="main-nav">
+			<img src="https://see.fontimg.com/api/renderfont4/YzE0o/eyJyIjoiZnMiLCJoIjo4MSwidyI6MTI1MCwiZnMiOjY1LCJmZ2MiOiIjMDAwMDAwIiwiYmdjIjoiI0ZGRkZGRiIsInQiOjF9/VGhlIGNvZGUgYnVpbGRlcg/aquire-light.png" alt="Microsoft" class="logo">
+			{% if user.is_authenticated %}
+			<ul class="right-menu" style="margin-top: 1rem">
+				<li><a href="{% url 'profile' %}"><i class="fas fa-user"></i> Username </a></li>
+				<li>
+				<form method="POST" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button type="submit" style="border: none; padding: 0px; background-color: white; outline: none;"><i class="fas fa-sign-out-alt"></i> Logout </button>
+                </form>
+            </li>
+			</ul>
+			{% endif %}
+		</nav>
+
+{% block content %} {% endblock %}
+
+      <!--Follow-->
+      <section class="follow">
+	  <hr>
+      	<p>Follow Microsoft</p>
+      	<a href="https://facebook.com">
+      		<img src="{% static 'home/img/social-fb.png' %}">
+      	</a>
+      	<a href="https://twitter.com">
+      		<img src="{% static 'home/img/social-twitter.png' %}">
+      	</a>
+      	<a href="https://linkedin.com">
+      		<img src="{% static 'home/img/social-linkedin.png' %}">
+      	</a>
+      </section>
+    </div>
+   </body>
+</html>

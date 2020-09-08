@@ -1,0 +1,91 @@
+{% extends 'home/base.html' %}
+
+{% load static %}
+
+{% block content %}
+		<!--ShowCase-->
+		<header class="showcase" style="background: url({% static 'home/img/front-end-web-development.jpg' %}) no-repeat center center/cover;">
+			<img src = "{% static 'home/img/logo1.png' %}" height = "50%">
+			<h2>The Code Builder</h2>
+			<p>
+        		Formal Description
+      		</p>
+      		{% if not user.is_authenticated %}
+      		<a href="{% url 'portal' %}" class="btn">
+      			Sign In <i class="fas fa-chevron-right"></i>
+      		</a>
+      		{% else %}
+      		<a href="{% url 'dashboard' %}" class="btn">
+      			Dashboard <i class="fas fa-chevron-right"></i>
+      		</a>
+      		{% endif %}
+		</header>
+
+		
+		<!-- Xbox -->
+
+		<section class="xbox" style="background: url({% static 'home/img/xbox.png' %}) no-repeat center center/cover;">
+			<div class="content">
+				<h2>Event Pass</h2>
+		        <p>Xbox Game Pass Ultimate Xbox Live Gold and over 100 high-quality
+		          console and PC games. Play together with friends and discover your
+		          next favorite game.</p>
+		        <a href="@" class="btn">
+		            Buy Now <i class="fas fa-chevron-right"></i>
+		        </a>
+			</div>
+		</section>
+		
+		<ul class="nav nav-tabs">
+			<li class="nav-item active"><a class="nav-link active" data-toggle="tab" href="#workshops">Workshops</a></li>
+			<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#bootcamps">Bootcamps</a></li>
+			<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#powertalks">Powertalks</a></li>
+			<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#summit">Tech Summits</a></li>
+			<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#hackathon">Hackathons</a></li>
+			<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#comps">Tech Competitions</a></li>
+		</ul>
+
+		<div class="tab-content">
+			<div id="workshops" class="tab-pane fade show active">
+				<section class="carbon dark" style = "background: url('https://wallpaperaccess.com/full/2109.jpg') no-repeat center center/cover;">
+					<div class="content">
+					<h2>Workshops</h2>
+					<p>Xbox Game Pass Ultimate Xbox Live Gold and over 100 high-quality console and PC games. Play together with friends and discover your next favorite game.
+					Xbox Game Pass Ultimate Xbox Live Gold and over 100 high-quality console and PC games. Play together with friends and discover your next favorite game.
+					Xbox Game Pass Ultimate Xbox Live Gold and over 100 high-quality console and PC games. Play together with friends and discover your next favorite game.
+					<hr style="background-color: white">
+					<h3> #1 Some workshop </h3>
+					Xbox Game Pass Ultimate Xbox Live Gold and over 100 high-quality console and PC games. Play together with friends and discover your next favorite game.
+					Xbox Game Pass Ultimate Xbox Live Gold and over 100 high-quality console and PC games. Play together with friends and discover your next favorite game.
+					</p>
+						<a href="#" class="btn">
+						Read More <i class="fas fa-chevron-right"></i>
+						</a>
+					</div>
+				</section>
+			</div>
+			<div id="bootcamps" class="tab-pane fade">
+				<section class="carbon dark"  style = "background: url('https://wallpaperaccess.com/full/2109.jpg') no-repeat center center/cover;">
+					<div class="content">
+					<h2>Boot Camps</h2>
+					<p>Lorem Ipsum camp #1</p>
+						<a href="#" class="btn">
+						About Us <i class="fas fa-chevron-right"></i>
+						</a>
+					</div>
+				</section>
+			</div>
+		</div>
+		<br><br>
+      <!-- Carbon -->
+      <section class="carbon dark" style="	background: url({% static 'home/img/carbon.jpg' %}) no-repeat center center/cover;">
+        <div class="content">
+          <h2>Commiting To Coders</h2>
+          <p>Lorem Ipsum Commit</p>
+            <a href="#" class="btn">
+              About Us <i class="fas fa-chevron-right"></i>
+            </a>
+        </div>
+      </section>
+
+{% endblock %}

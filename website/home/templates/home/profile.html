@@ -1,0 +1,35 @@
+{% extends 'home/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+		<br>
+		<br>
+		<br>
+		<div class = "row">
+			<div class="col-md-2"></div>
+			<div class="col-md-8">
+					<div class="card profile-card-3">
+						<div class="background-block">
+							<img src="{% static 'home/img/front-end-web-development.jpg' %}" alt="profile-sample1" class="background"/>
+						</div>
+						<div class="profile-thumb-block">
+							<img src="https://randomuser.me/api/portraits/men/41.jpg" alt="profile-image" class="profile"/>
+						</div>
+						<div class="card-content">
+							<h2>Justin Mccoy <i class="fas fa-edit"></i>
+								<small><i class="fas fa-hashtag"></i> - 101917132</small>
+								<small><i class="fas fa-envelope"></i> - rishabhsood2@gmail.com</small>
+								<small><i class="fas fa-phone"></i> - +91-8920492376</small></h2>
+								<br>
+							<div class="alert alert-primary" role="alert" style = "width: 60%; margin: auto">
+							WAB6890ER42B | #6
+							</div>
+							<br>
+						</div>
+				    </div>
+			</div>
+			<div class="col-md-2"></div>
+		</div>
+{% endblock %}
