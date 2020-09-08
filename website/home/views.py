@@ -5,6 +5,9 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
+def error404(request, exception=None):
+    return render(request, 'handler/error.html', status=404)
+
 def home(request):
 	return render(request, 'home/home.html')
 
