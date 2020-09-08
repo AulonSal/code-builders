@@ -69,9 +69,6 @@ ul{
 .main-nav ul li a{
 	padding-bottom: 2px;
 }
-.main-nav ul li a:hover{
-	border-bottom: 2px solid #262626;
-}
 
 .main-nav .logo{
 	width: 208px;
