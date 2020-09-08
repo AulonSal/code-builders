@@ -23,7 +23,7 @@
 			<img src="https://see.fontimg.com/api/renderfont4/YzE0o/eyJyIjoiZnMiLCJoIjo4MSwidyI6MTI1MCwiZnMiOjY1LCJmZ2MiOiIjMDAwMDAwIiwiYmdjIjoiI0ZGRkZGRiIsInQiOjF9/VGhlIGNvZGUgYnVpbGRlcg/aquire-light.png" alt="Microsoft" class="logo">
 			{% if user.is_authenticated %}
 			<ul class="right-menu" style="margin-top: 1rem">
-				<li><a href="{% url 'profile' %}"><i class="fas fa-user"></i> Username </a></li>
+				<li><a href="{% url 'profile' %}" style = "color: #262626; text-decoration: none"><i class="fas fa-user"></i> Username </a></li>
 				<li>
 				<form method="POST" action="{% url 'logout' %}">
                         {% csrf_token %}
