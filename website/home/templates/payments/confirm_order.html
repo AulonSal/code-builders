@@ -1,218 +1,59 @@
+
 {% load static %}
-<!DOCTYPE html>
-<html>
+
+<html lang="en" >
 <head>
-    <title>Account registration form</title>
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600' rel='stylesheet'
-          type='text/css'>
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
-    <style>
-        html, body {
-            min-height: 100%;
-        }
-
-        body, div, form, input, select, p {
-            padding: 0;
-            margin: 0;
-            outline: none;
-            font-family: Roboto, Arial, sans-serif;
-            font-size: 14px;
-            color: #666;
-        }
-
-        h1 {
-            margin: 0;
-            font-weight: 400;
-        }
-
-        h3 {
-            margin: 12px 0;
-            color: #8ebf42;
-        }
-
-        .main-block {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: #fff;
-        }
-
-        form {
-            width: 100%;
-            padding: 20px;
-        }
-
-        fieldset {
-            border: none;
-            border-top: 1px solid #8ebf42;
-        }
-
-        .account-details, .personal-details {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-        }
-
-        .account-details > div, .personal-details > div > div {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .account-details > div, .personal-details > div, input, label {
-            width: 100%;
-        }
-
-        label {
-            padding: 0 5px;
-            text-align: right;
-            vertical-align: middle;
-        }
-
-        input {
-            padding: 5px;
-            vertical-align: middle;
-        }
-
-        .checkbox {
-            margin-bottom: 10px;
-        }
-
-        select, .children, .gender, .bdate-block {
-            width: calc(100% + 26px);
-            padding: 5px 0;
-        }
-
-        select {
-            background: transparent;
-        }
-
-        .gender input {
-            width: auto;
-        }
-
-        .gender label {
-            padding: 0 5px 0 0;
-        }
-
-        .bdate-block {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .birthdate select.day {
-            width: 35px;
-        }
-
-        .birthdate select.mounth {
-            width: calc(100% - 94px);
-        }
-
-        .birthdate input {
-            width: 38px;
-            vertical-align: unset;
-        }
-
-        .checkbox input, .children input {
-            width: auto;
-            margin: -2px 10px 0 0;
-        }
-
-        .checkbox a {
-            color: #8ebf42;
-        }
-
-        .checkbox a:hover {
-            color: #82b534;
-        }
-
-        button {
-            width: 100%;
-            padding: 10px 0;
-            margin: 10px auto;
-            border-radius: 5px;
-            border: none;
-            background: #8ebf42;
-            font-size: 14px;
-            font-weight: 600;
-            color: #fff;
-        }
-
-        button:hover {
-            background: #82b534;
-        }
-
-        @media (min-width: 568px) {
-            .account-details > div, .personal-details > div {
-                width: 50%;
-            }
-
-            label {
-                width: 40%;
-            }
-
-            input {
-                width: 60%;
-            }
-
-            select, .children, .gender, .bdate-block {
-                width: calc(60% + 16px);
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Login/Registration</title>
+  <link rel="stylesheet" href="{% static 'sign_in/style.css' %}">
+  <style>
+    input[type=button], input[type=submit] {
+      background-color: #4CAF50;
+      border: none;
+      border-radius: 2rem;
+      color: white;
+      padding: 16px 32px;
+      text-decoration: none;
+      margin: 4px 2px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-<div class="main-block">
-
-
-    <form action="{% url 'payment_status' %}" method="POST">{% csrf_token %}
-
-
-        <h1>Creating order</h1>
-        <fieldset>
-            <legend>
-                <h3>Selected Product</h3>
-            </legend>
-
-            <div class="gender">
-                Product {{ product_id }} Price {{ price }}
-            </div>
-
-        </fieldset>
-        <fieldset>
-            <legend>
-                <h3>Personal Details</h3>
-            </legend>
-            <div class="personal-details">
-                <div>
-                    <div><label>Roll No.*</label><input type="text" name="name" placeholder="{{ name }}" disabled></div>
-                    <div><label>Phone*</label><input type="text" name="name" placeholder="{{ phone }}" disabled></div>
-                    <div><label>Email*</label><input type="text" name="name" placeholder="{{ email }}" disabled></div>
-
-
-                </div>
-
-            </div>
-        </fieldset>
-        <script src="https://checkout.razorpay.com/v1/checkout.js"
+<div class="main">
+      <div class="container a-container" id="a-container">
+        <form class="form" id="a-form" action="{% url 'payment_status' %}" method="POST"> {% csrf_token %}
+          <h2 class="form_title title">Buy Event Pass</h2>
+ 
+          <input class="form__input" type="text" name="name" placeholder="{{ name }}" disabled>
+          <input class="form__input" type="text" name="name" placeholder="{{ phone }}" disabled>
+          <input class="form__input" type="text" name="name" placeholder="{{ email }}" disabled>
+          <br>
+          <br>
+          <script src="https://checkout.razorpay.com/v1/checkout.js"
                 data-key="{{ data_key }}"
                 data-amount="{{ amount }}"
                 data-currency="{{ currency }}"
                 data-order_id="{{ order_id }}"
                 data-buttontext="Pay with Razorpay"
                 data-name="The Code Builder"
-                data-description="Test transaction"
-                data-image="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRpWzPOB8s9WRX7JXZ96x1oPESu-eoN5YUFfDKcebTKFn7piPBS&usqp=CAU"
+                data-description="Buy Event Pass"
+                data-image="{% static 'home/img/logo2.png' %}"
                 data-prefill.name="{{ name }}"
                 data-prefill.email="{{ email }}"
                 data-prefill.contact="{{ phone }}"
-                data-theme.color="#F37254"></script>
-        <input type="hidden" custom="Hidden Element" name="hidden">
-
-
-    </form>
-
-
-</div>
+                data-theme.color="#000080"></script>
+        </form>
+      </div>
+      <div class="switch" id="switch-cnt">
+        <div class="switch__circle"></div>
+        <div class="switch__circle switch__circle--t"></div>
+        <div class="switch__container" id="switch-c1">
+          <img src = "https://images.vexels.com/media/users/3/157932/isolated/lists/951a617272553f49e75548e212ed947f-curved-check-mark-icon.png" style="height: 10rem">
+          <h2 class="switch__title title">Confirm Payment</h2>
+          <p class="switch__description description">You're one step away from completing the payment!</p>
+        </div>
+      </div>
+    </div>
 </body>
 </html>
