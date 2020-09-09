@@ -5,7 +5,7 @@
 }
 
 body{
-	font-family: 'Segoe UI', Tahoma, Geneva, Verdena, sans-serif;
+	font-family: 'Muli', sans-serif;
 	background: #fff;
 	color: #000;
 	font-size: 15px;
@@ -360,7 +360,6 @@ ul{
 .footer div i{
 	margin-right: 10px;
 }
-
 @media(max-width: 1000px)
 {
 	.home-cards{

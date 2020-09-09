@@ -1,0 +1,56 @@
+{% load static %}
+<html>
+    <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" integrity="sha256-h20CPZ0QyXlBuAw7A+KluUYx/3pK+c7lYEpqLTlxjYQ=" crossorigin="anonymous" />
+        <link rel="stylesheet" href="{% static 'home/css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'home/css/announcement.css' %}">
+    </head>
+    <body>
+        <div class="container">
+
+            <!--NAV BAR-->
+            <nav class="main-nav">
+                <a href = "{% url 'home' %}"><img src="https://see.fontimg.com/api/renderfont4/YzE0o/eyJyIjoiZnMiLCJoIjo4MSwidyI6MTI1MCwiZnMiOjY1LCJmZ2MiOiIjMDAwMDAwIiwiYmdjIjoiI0ZGRkZGRiIsInQiOjF9/VGhlIGNvZGUgYnVpbGRlcg/aquire-light.png" alt="Microsoft" class="logo"></a>
+                {% if user.is_authenticated %}
+                <ul class="right-menu">
+                    <li><a href="{% url 'announcements' %}" style = "color: #262626; text-decoration: none"><i class="fas fa-bell"></i> Announcements </a></li>
+                    <li><a href="{% url 'profile' %}" style = "color: #262626; text-decoration: none"><i class="fas fa-user"></i> {{user.username}} </a></li>
+                    <li>
+                    <form method="POST" action="{% url 'logout' %}">
+                            {% csrf_token %}
+                            <button type="submit" style="border: none; background-color: white; outline: none; font-family: 'aquire'; margin-top: 0.15rem"><i class="fas fa-sign-out-alt"></i> Logout </button>
+                    </form>
+                </li>
+                </ul>
+                {% endif %}
+            </nav>
+            <br>
+            <!--ShowCase-->
+            <header class="showcase" style="background: url({% static 'home/img/front-end-web-development.jpg' %}) no-repeat center center/cover;">
+                <img src = "{% static 'home/img/logo1.png' %}" height = "50%">
+                <h2>The Code Builder</h2>
+                <p>
+                    Formal description, inherit this.
+                </p>
+                <a href="{% url 'home' %}" class="btn">
+                    Home <i class="fas fa-chevron-right"></i>
+                </a>
+            </header>
+            <br>
+        </div>
+
+        <div class="courses-container">
+            <div class="course">
+                <div class="course-preview" style="background: url({% static 'home/img/front-end-web-development.jpg' %}) no-repeat center center/cover;">
+                    <h5>Announcement 1</h5>
+                    <h2>Announcement Heading</h2>
+                </div>
+                <div class="course-info">
+                    <h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc convallis, enim id laoreet gravida, velit purus consequat nulla, nec hendrerit erat
+                     urna eu tortor. Suspendisse vitae quam metus. Integer ligula dui, tincidunt eget elit in, dapibus accumsan orci. Ut ligula lectus, consequat sed 
+                     odio at, efficitur commodo risus. Cras tempus molestie turpis ac congue. Fusce sed erat orci. Aliquam at diam risus. </h3>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
