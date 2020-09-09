@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+
 import website.config as CONFIG
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -19,10 +20,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = CONFIG.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = CONFIG.DEBUG
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = CONFIG.ALLOWED_HOSTS
 
 # Application definition
 
@@ -66,7 +66,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'website.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
@@ -82,8 +81,6 @@ DATABASES = {
     }
 }
 CONN_MAX_AGE = CONFIG.CONN_MAX_AGE
-
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -103,7 +100,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
@@ -116,7 +112,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
@@ -144,7 +139,5 @@ EMAIL_USE_SSL = CONFIG.EMAIL_USE_SSL
 CSRF_COOKIE_SECURE = CONFIG.CSRF_COOKIE_SECURE
 SESSION_COOKIE_SECURE = CONFIG.SESSION_COOKIE_SECURE
 
-
 # Logging
 LOGGING = CONFIG.LOGGING
-
