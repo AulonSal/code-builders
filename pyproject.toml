@@ -9,6 +9,7 @@ python = "^3.8"
 django = "^3.1.1"
 psycopg2 = "^2.8.6"
 razorpay = "^1.2.0"
+ipython = "^7.18.1"
 
 [tool.poetry.dev-dependencies]
 
