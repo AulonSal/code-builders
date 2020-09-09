@@ -114,7 +114,6 @@ def portal(request):
             )
             participant.save()
 
-        # No idea if it works
         except IntegrityError:
             return render(request, 'sign_in/sign.html',
                           {'signup_error': 'Unexpected error occurred'})
