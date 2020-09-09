@@ -99,24 +99,11 @@ def portal(request):
         context['data_key'] = settings.PAY_KEY_ID
 
         # TODO: Figure out how to pass user details to confirm view for creation
-        try:
-            user = User.objects.create_user(
-                username=username,
-                password=password,
-                email=email,
-            )
-            user.save()
-
-            participant = Participant.objects.create(
-                user=user,
-                referrer=referrer,
-                contact_number=contact_number,
-            )
-            participant.save()
-
-        except IntegrityError:
-            return render(request, 'sign_in/sign.html',
-                          {'signup_error': 'Unexpected error occurred'})
+        request.session['username'] = 'username'
+        request.session['password'] = 'password'
+        request.session['email'] = 'email'
+        request.session['referrer'] = 'referrer'
+        request.session['contact_number'] = 'contact_number'
 
         # Order payment
         return render(request, 'payments/confirm_order.html', context)
@@ -138,7 +125,23 @@ def payment_status(request):
     # VERIFYING SIGNATURE
     try:
         status = client.utility.verify_payment_signature(params_dict)
+        user = User.objects.create_user(
+                username=request.session['username'],
+                password=request.session['password'],
+                email=request.session['email'],
+            )
+        user.save()
+        
+        participant = Participant.objects.create(
+            user=user,
+            referrer=request.session['referrer'],
+            contact_number=request.session['contact_number'],
+        )
+        participant.save()      
         return render(request, 'payments/order_summary.html', {'status': 'Payment Successful'})
+
+    except IntegrityError:
+        return redirect('portal') # render(request, 'sign_in/sign.html',{'signup_error': 'Unexpected error occurred'})
     except:
         return render(request, 'payments/order_summary.html', {'status': 'Payment Faliure!!!'})
 
