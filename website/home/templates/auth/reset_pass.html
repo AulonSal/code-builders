@@ -1,0 +1,34 @@
+{% load static %}
+
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Password Reset</title>
+  <link rel="stylesheet" href="{% static 'sign_in/style.css' %}">
+ 
+</head>
+<body>
+ 
+    <div class="main">
+      <div class="container a-container" id="a-container">
+        <form class="form" id="a-form" method="post" action="{{ app_path }}">
+                    {% csrf_token %}
+          <h2 class="form_title title">Enter Email</h2>
+ 
+          {{ form.email }}
+          <input type="submit" class="form__button button submit" value="Reset Password">
+        </form>
+      </div>
+      <div class="switch" id="switch-cnt">
+        <div class="switch__circle"></div>
+        <div class="switch__circle switch__circle--t"></div>
+        <div class="switch__container" id="switch-c1">
+          <img src = "https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/TAR_Exclamation_icon.svg/1200px-TAR_Exclamation_icon.svg.png" style = "height: 5rem">
+          <h2 class="switch__title title">Forgot Password ?</h2>
+          <p class="switch__description description">Don't worry we got you covered !</p>
+        </div>
+      </div>
+    </div>
+ 
+</body>
+</html>

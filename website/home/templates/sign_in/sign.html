@@ -15,9 +15,9 @@
           {% csrf_token %}
           <h2 class="form_title title">Create Account</h2>
 
-          {% if error %}
+          {% if signup_error %}
               <div role="alert" style="padding: .5rem 2rem; background-color: #FFCCCB; border-radius: 2rem; ">
-                  <strong style="color: red;">{{ error }}</strong>
+                  <strong style="color: red;">{{ signup_error }}</strong>
               </div>
               <br>
            {% endif %}
@@ -36,14 +36,20 @@
         <form class="form" id="b-form" method="POST" action="">
           {% csrf_token %}
           <h2 class="form_title title">Sign in</h2>
-          {% if error %}
+          {% if signin_error %}
               <div role="alert" style="padding: .5rem 2rem; background-color: #FFCCCB; border-radius: 2rem; ">
-                <strong style="color: red;">{{ error }}</strong>
+                <strong style="color: red;">{{ signin_error }}</strong>
               </div>
               <br>
           {% endif %}
+          {% if signup_error %}
+            <div role="alert" style="padding: .5rem 2rem; background-color: #FFCCCB; border-radius: 2rem; ">
+                <strong style="color: red;">{{ signup_error }}</strong>
+            </div>
+            <br>
+          {% endif %}
           <input class="form__input" type="text" name="username" placeholder="Username">
-          <input class="form__input" type="password" name="password" placeholder="Password"><a class="form__link" href="#">Forgot your password?</a>
+          <input class="form__input" type="password" name="password" placeholder="Password"><a class="form__link" href="{% url 'password_reset' %}">Forgot your password?</a>
           <button name="signin" type="submit" class="button">SIGN IN</button>
         </form>
       </div>

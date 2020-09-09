@@ -46,14 +46,14 @@ def portal(request):
         user = authenticate(request, username=request.POST['username'], password=request.POST['password'])
         if user is None:
             return render(request, 'sign_in/sign.html',
-                          {'form': AuthenticationForm(), 'error': 'Invalid Credentials.'})
+                          {'signin_error': 'Invalid Credentials.'})
         else:
             login(request, user)
             return redirect('/')
 
     if request.POST['password'] != request.POST['password-confirmation']:
         return render(request, 'sign_in/sign.html',
-                      {'error': 'Passwords did not match'})
+                      {'signup_error': 'Passwords did not match'})
 
     username = request.POST['username']
     password = request.POST['password']
@@ -63,7 +63,7 @@ def portal(request):
 
     # Referral Code check
     if referral_code and not (referrer := TeamMember.objects.filter(referral_code=referral_code)):
-        return render(request, 'sign_in/sign.html', {'error': 'Invalid Referral Code'})
+        return render(request, 'sign_in/sign.html', {'signup_error': 'Invalid Referral Code'})
 
     referral_code = None if not referral_code else referral_code
     referrer = referrer[0] if referral_code else None
@@ -117,13 +117,13 @@ def portal(request):
         # No idea if it works
         except IntegrityError:
             return render(request, 'sign_in/sign.html',
-                          {'error': 'Unexpected error occurred'})
+                          {'signup_error': 'Unexpected error occurred'})
 
         # Order payment
         return render(request, 'payments/confirm_order.html', context)
         # print('\n\n\nresponse: ',response, type(response))
 
-    return render(request, 'sign_in/sign.html', {'error': 'Unknown error at the first step'})
+    return render(request, 'sign_in/sign.html', {'signup_error': 'Unknown error at the first step'})
 
 
 def payment_status(request):
