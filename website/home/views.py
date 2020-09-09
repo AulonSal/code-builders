@@ -6,6 +6,11 @@ from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.conf import settings
+import razorpay
+
+# Payments
+client = razorpay.Client(auth=(settings.PAY_KEY_ID, settings.PAY_SECRET_KEY))
 
 
 def home(request):

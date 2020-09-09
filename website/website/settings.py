@@ -144,3 +144,7 @@ LOGGING = CONFIG.LOGGING
 
 # Messages
 MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
+
+# Payments
+PAY_KEY_ID = CONFIG.PAY_KEY_ID
+PAY_SECRET_KEY = CONFIG.PAY_SECRET_KEY

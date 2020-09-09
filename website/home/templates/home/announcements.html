@@ -15,12 +15,12 @@
                 <ul class="right-menu">
                     <li><a href="{% url 'announcements' %}" style = "color: #262626; text-decoration: none"><i class="fas fa-bell"></i> Announcements </a></li>
                     <li><a href="{% url 'profile' %}" style = "color: #262626; text-decoration: none"><i class="fas fa-user"></i> {{user.username}} </a></li>
-                    <li>
+                    <li style="cursor: pointer;">
                     <form method="POST" action="{% url 'logout' %}">
                             {% csrf_token %}
                             <button type="submit" style="border: none; background-color: white; outline: none; font-family: 'aquire'; margin-top: 0.15rem"><i class="fas fa-sign-out-alt"></i> Logout </button>
                     </form>
-                </li>
+                    </li>
                 </ul>
                 {% endif %}
             </nav>
