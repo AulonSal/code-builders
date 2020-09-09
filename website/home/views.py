@@ -19,6 +19,9 @@ def dashboard(request):
 def profile(request):
     return render(request, 'home/profile.html')
 
+@login_required
+def announcements(request):
+    return render(request, 'home/announcements.html')
 
 def portal(request):
     if request.method == 'GET':
