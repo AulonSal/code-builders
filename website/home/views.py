@@ -72,7 +72,7 @@ def portal(request):
 
     # TODO: MOVE to db
     common_details = {
-        'amount': 100,
+        'amount': 1000,
         'currency': 'INR',
         'notes': {
             'Purpose': 'EVENT PASS',
