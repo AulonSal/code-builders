@@ -1,9 +1,11 @@
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_http_methods
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.shortcuts import render, redirect
+from django.contrib import messages
 
 
 def home(request):
@@ -21,14 +23,17 @@ def profile(request):
 
 
 def portal(request):
-    if request.method == 'GET':
+    logged_in = request.user.is_authenticated
+    if request.method == 'GET' and not logged_in:
         return render(request, 'sign_in/sign.html', {'form': UserCreationForm()})
+    elif logged_in:
+        return redirect('/')
     else:
         if 'signup' in request.POST:
 
             if request.POST['password1'] == request.POST['password2']:
                 try:
-                    user = User.objects.create_user(request.POST['username'], password=request.POST['password1'])
+                    user = User.objects.create_user(username=request.POST['username'], password=request.POST['password1'], email=request.POST['email'])
                     user.save()
                     login(request, user)
                     return redirect('/')
@@ -48,8 +53,9 @@ def portal(request):
                 return redirect('/')
 
 
+@require_http_methods(["POST"])
 @login_required
 def logoutuser(request):
-    if request.method == 'POST':
-        logout(request)
-        return redirect('/')
+    logout(request)
+    messages.add_message(request, messages.INFO, 'Logout successful')
+    return redirect('/')

@@ -141,3 +141,6 @@ SESSION_COOKIE_SECURE = CONFIG.SESSION_COOKIE_SECURE
 
 # Logging
 LOGGING = CONFIG.LOGGING
+
+# Messages
+MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'

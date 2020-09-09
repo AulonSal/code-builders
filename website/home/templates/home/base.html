@@ -32,6 +32,17 @@
             </li>
 			</ul>
 			{% endif %}
+			{% if messages %}
+				<div role="alert" style="padding: 1rem 1rem 0; background-color: #90EE90; border-radius: 2rem;">
+                <strong style="color: green; vertical-align: middle;">
+				<ul class="messages">
+			    {% for message in messages %}
+			    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+			    {% endfor %}
+				</ul>
+					</strong>
+           		 </div>
+			{% endif %}
 		</nav>
 
 {% block content %} {% endblock %}

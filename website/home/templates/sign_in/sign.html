@@ -10,7 +10,7 @@
 <body>
  
     <div class="main">
-      <div class="container a-container" id="a-container">
+      <div class="container b-container" id="b-container">
         <form class="form" id="a-form" method="POST" action="">
           {% csrf_token %}
           <h2 class="form_title title">Create Account</h2>
@@ -23,14 +23,14 @@
            {% endif %}
 
           <input class="form__input" type="text" placeholder="Name">
-          <input class="form__input" type="Email" placeholder="Email">
+          <input class="form__input" type="Email" name="email" placeholder="Email">
           <input class="form__input" type="number" name="username" placeholder="Enrollment No.">
           <input class="form__input" type="password" name="password1" placeholder="Password">
           <input class="form__input" type="password" name="password2" placeholder="Confirm Password">
           <button type="submit" name="signup" class="button">SIGN UP</button>
         </form>
       </div>
-      <div class="container b-container" id="b-container">
+      <div class="container a-container" id="a-container">
         <form class="form" id="b-form" method="POST" action="">
           {% csrf_token %}
           <h2 class="form_title title">Sign in</h2>
@@ -48,12 +48,12 @@
       <div class="switch" id="switch-cnt">
         <div class="switch__circle"></div>
         <div class="switch__circle switch__circle--t"></div>
-        <div class="switch__container" id="switch-c1">
+        <div class="switch__container is-hidden" id="switch-c2">
           <h2 class="switch__title title">Welcome Back !</h2>
           <p class="switch__description description">To keep connected with us please login with your personal info</p>
           <button class="switch__button button switch-btn">SIGN IN</button>
         </div>
-        <div class="switch__container is-hidden" id="switch-c2">
+        <div class="switch__container" id="switch-c1">
           <h2 class="switch__title title">Hello Friend !</h2>
           <p class="switch__description description">Enter your personal details and start journey with us</p>
           <button class="switch__button button switch-btn">SIGN UP</button>
