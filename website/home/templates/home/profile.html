@@ -18,14 +18,16 @@
 							<img src="https://randomuser.me/api/portraits/men/41.jpg" alt="profile-image" class="profile"/>
 						</div>
 						<div class="card-content">
-							<h2>Justin Mccoy <i class="fas fa-edit"></i>
-								<small><i class="fas fa-hashtag"></i> - 101917132</small>
-								<small><i class="fas fa-envelope"></i> - rishabhsood2@gmail.com</small>
-								<small><i class="fas fa-phone"></i> - +91-8920492376</small></h2>
+							<h2>{{ user.first_name }}
+								<small><i class="fas fa-hashtag"></i> - {{ user.username }}</small>
+								<small><i class="fas fa-envelope"></i> - {{ user.email }}</small>
+								<small><i class="fas fa-phone"></i> - {{ user.participant.contact_number }}</small></h2>
 								<br>
+                            {% if user.teammember.referral_code %}
 							<div class="alert alert-primary" role="alert" style = "width: 60%; margin: auto">
-							WAB6890ER42B | #6
+                                {{ user.teammember.referral_code }} | #{{ referral_count }}
 							</div>
+                            {% endif %}
 							<br>
 						</div>
 				    </div>

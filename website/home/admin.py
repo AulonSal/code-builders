@@ -1,7 +1,9 @@
 from django.contrib import admin
 
-from .models import TeamMember, Participant
+from .models import TeamMember, Participant, Announcement, EventCategory, Event
 
-# Register your models here.
 admin.site.register(TeamMember)
 admin.site.register(Participant)
+admin.site.register(Announcement)
+admin.site.register(EventCategory)
+admin.site.register(Event)

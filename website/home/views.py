@@ -3,7 +3,8 @@ from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.views.decorators.http import require_http_methods
-
+from .models import Announcement
+from django.core.exceptions import ObjectDoesNotExist
 
 def home(request):
     return render(request, 'home/home.html')
@@ -16,12 +17,17 @@ def dashboard(request):
 
 @login_required
 def profile(request):
-    return render(request, 'home/profile.html')
+    try:
+        referral_count = request.user.teammember.participant_set.count()
+    except ObjectDoesNotExist:
+        referral_count = None
+    return render(request, 'home/profile.html', {'referral_count': referral_count})
 
 
 @login_required
 def announcements(request):
-    return render(request, 'home/announcements.html')
+    announcements_ = Announcement.objects.all().order_by('created_on')
+    return render(request, 'home/announcements.html', {'announcements': announcements_})
 
 
 @require_http_methods(["POST"])

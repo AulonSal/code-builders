@@ -39,18 +39,18 @@
             <br>
         </div>
 
+        {% for announcement in announcements %}
         <div class="courses-container">
             <div class="course">
                 <div class="course-preview" style="background: url({% static 'home/img/front-end-web-development.jpg' %}) no-repeat center center/cover;">
-                    <h5>Announcement 1</h5>
-                    <h2>Announcement Heading</h2>
+                    <h5>Announcement {{ forloop.counter }}</h5>
+                    <h2>{{ announcement.title }}</h2>
                 </div>
                 <div class="course-info">
-                    <h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc convallis, enim id laoreet gravida, velit purus consequat nulla, nec hendrerit erat
-                     urna eu tortor. Suspendisse vitae quam metus. Integer ligula dui, tincidunt eget elit in, dapibus accumsan orci. Ut ligula lectus, consequat sed 
-                     odio at, efficitur commodo risus. Cras tempus molestie turpis ac congue. Fusce sed erat orci. Aliquam at diam risus. </h3>
+                    <h3>{{ announcement.content }}</h3>
                 </div>
             </div>
         </div>
+        {% endfor %}
     </body>
 </html>
