@@ -1,7 +1,10 @@
 import razorpay
+from razorpay.errors import SignatureVerificationError
 from django.conf import settings
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
+from django.core import serializers
+from django.core.exceptions import ValidationError
 from django.db import IntegrityError
 from django.shortcuts import redirect
 from django.shortcuts import render
@@ -55,8 +58,6 @@ def portal(request):
 
     # Transaction Details
     # TODO: MOVE to db
-
-
     discount_multiplier = 0.8
 
     general_details = {
@@ -79,27 +80,41 @@ def portal(request):
     order_id = response['id']
     order_status = response['status']
 
-    # If successful order, show order-confirmation
+    # Upon successful order, show order-confirmation
     if order_status == 'created':
         # Razorpay data
         context = dict(name=username, contact_number=contact_number, email=email, **general_details)
         context['order_id'] = order_id
         context['data_key'] = settings.PAY_KEY_ID
 
-        # TODO: Figure out how to pass user details to confirm view for creation
-        # Pass the details for new user creation
-        new_user = dict(
-            username=username,
-            password=password,
-            email=email,
-            referrer=referrer,
-            contact_number=contact_number,
-        )
-        request.session['new_user'] = new_user
+        # Create New User & Participant instances
+        try:
+            user_details = dict(
+                username=username,
+                password=password,
+                email=email,
+            )
+
+            participant_details = dict(
+                referrer=referrer,
+                contact_number=contact_number,
+            )
+
+            user = User(**user_details)
+
+            participant = Participant(**participant_details)
+
+            # Validating model instances
+            user.full_clean(validate_unique=True)
+            participant.clean_fields(exclude=('user',))
+
+        except (IntegrityError, ValidationError):
+            return render(request, 'sign_in/sign.html', {'signup_error': 'Invalid User Details'})
+
+        request.session['new_user'] = (user_details, participant_details)
 
         # Order payment
         return render(request, 'payments/confirm_order.html', context)
-        print('\n\n\nresponse: ', response, type(response))
 
     return render(request, 'sign_in/sign.html', {'signup_error': 'Order not created'})
 
@@ -114,25 +129,15 @@ def payment_status(request):
         'razorpay_signature': response['razorpay_signature']
     }
 
-    new_user = request.session['new_user']
+    user_details, participant_details = request.session['new_user']
+
     # VERIFYING SIGNATURE
     try:
         status = client.utility.verify_payment_signature(params_dict)
-        user = User.objects.create_user(
-            username=new_user['username'],
-            password=new_user['password'],
-            email=new_user['email'],
-        )
-        user.save()
+    except SignatureVerificationError:
+        return render(request, 'payments/order_summary.html', {'status': 'Payment Failed'})
 
-        participant = Participant.objects.create(
-            user=user,
-            referrer=new_user['referrer'],
-            contact_number=new_user['contact_number'],
-        )
-        participant.save()
-        return render(request, 'payments/order_summary.html', {'status': 'Payment Successful'})
+    user = User.objects.create_user(**user_details)
+    Participant.objects.create(**participant_details, user=user)
 
-    except IntegrityError:
-        return redirect('portal')  # render(request, 'sign_in/sign.html',{'signup_error': 'Unexpected error occurred'})
-
+    return render(request, 'payments/order_summary.html', {'status': 'Payment Successful'})
