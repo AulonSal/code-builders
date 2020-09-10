@@ -39,15 +39,20 @@ def portal(request):
         login(request, user)
         return redirect('/')
 
-    # SIGNUP Request
-    if request.POST['password'] != request.POST['password-confirmation']:
-        return render(request, 'sign_in/sign.html', {'signup_error': 'Passwords did not match'})
-
     username = request.POST['username']
     password = request.POST['password']
+    password_confirmation = request.POST['password-confirmation']
     referral_code = request.POST['referral-code']
     email = request.POST['email']
     contact_number = request.POST['contact-no']
+
+    # TODO: Replace with django form, emailfiled, phone field etc
+    # SIGNUP Request
+    if password != password_confirmation:
+        return render(request, 'sign_in/sign.html', {'signup_error': 'Passwords did not match'})
+
+    if User.objects.filter(email=email):
+        return render(request, 'sign_in/sign.html', {'signup_error': 'Email already registered'})
 
     # Referral Code validity check
     if referral_code and not (referrer := TeamMember.objects.filter(referral_code=referral_code)):
