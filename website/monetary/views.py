@@ -3,7 +3,6 @@ from razorpay.errors import SignatureVerificationError
 from django.conf import settings
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
-from django.core import serializers
 from django.core.exceptions import ValidationError
 from django.db import IntegrityError
 from django.shortcuts import redirect
@@ -116,7 +115,9 @@ def portal(request):
         context['order_id'] = order_id
         context['data_key'] = settings.PAY_KEY_ID
 
-        request.session['new_user'] = serializers.serialize((user_details, participant_details))
+        # Pass referrer id, skip serialisation
+        referrer_id = referrer.id
+        request.session['new_user'] = (user_details, contact_number, referrer_id)
 
         # Order payment
         return render(request, 'payments/confirm_order.html', context)
@@ -134,7 +135,8 @@ def payment_status(request):
         'razorpay_signature': response['razorpay_signature']
     }
 
-    user_details, participant_details = serializers.deserialize(request.session['new_user'])
+    user_details, contact_number, referrer_id = request.session['new_user']
+    referrer = TeamMember.objects.get(id=referrer_id)
 
     # VERIFYING SIGNATURE
     try:
@@ -143,6 +145,6 @@ def payment_status(request):
         return render(request, 'payments/order_summary.html', {'status': 'Payment Failed'})
 
     user = User.objects.create_user(**user_details)
-    Participant.objects.create(**participant_details, user=user)
+    Participant.objects.create(contact_number=contact_number, referrer=referrer, user=user)
 
     return render(request, 'payments/order_summary.html', {'status': 'Payment Successful'})
