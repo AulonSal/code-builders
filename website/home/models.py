@@ -10,4 +10,4 @@ class TeamMember(models.Model):
 class Participant(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     referrer = models.ForeignKey(TeamMember, on_delete=models.SET_NULL, null=True, blank=True)
-    contact_number = models.CharField(max_length=14)
+    contact_number = models.CharField(max_length=15)
