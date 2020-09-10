@@ -39,6 +39,7 @@ def portal(request):
         login(request, user)
         return redirect('/')
 
+    name = request.POST['name']
     username = request.POST['username']
     password = request.POST['password']
     password_confirmation = request.POST['password-confirmation']
@@ -46,7 +47,6 @@ def portal(request):
     email = request.POST['email']
     contact_number = request.POST['contact-no']
 
-    # TODO: Replace with django form, emailfiled, phone field etc
     # SIGNUP Request
     if password != password_confirmation:
         return render(request, 'sign_in/sign.html', {'signup_error': 'Passwords did not match'})
@@ -60,6 +60,30 @@ def portal(request):
 
     # Referral Code
     referral_code, referrer = (None, None) if not referral_code else (referral_code, referrer[0])
+
+    # Create New User & Participant instances
+    try:
+        user_details = dict(
+            username=username,
+            first_name=name,
+            password=password,
+            email=email,
+        )
+
+        participant_details = dict(
+            referrer=referrer,
+            contact_number=contact_number,
+        )
+
+        user = User(**user_details)
+        participant = Participant(**participant_details)
+
+        # Validating model instances
+        user.full_clean(validate_unique=True)
+        participant.clean_fields(exclude=('user',))
+
+    except (IntegrityError, ValidationError):
+        return render(request, 'sign_in/sign.html', {'signup_error': 'Invalid User Details'})
 
     # Transaction Details
     # TODO: MOVE to db
@@ -88,33 +112,9 @@ def portal(request):
     # Upon successful order, show order-confirmation
     if order_status == 'created':
         # Razorpay data
-        context = dict(name=username, contact_number=contact_number, email=email, **general_details)
+        context = dict(name=name, contact_number=contact_number, email=email, **general_details)
         context['order_id'] = order_id
         context['data_key'] = settings.PAY_KEY_ID
-
-        # Create New User & Participant instances
-        try:
-            user_details = dict(
-                username=username,
-                password=password,
-                email=email,
-            )
-
-            participant_details = dict(
-                referrer=referrer,
-                contact_number=contact_number,
-            )
-
-            user = User(**user_details)
-
-            participant = Participant(**participant_details)
-
-            # Validating model instances
-            user.full_clean(validate_unique=True)
-            participant.clean_fields(exclude=('user',))
-
-        except (IntegrityError, ValidationError):
-            return render(request, 'sign_in/sign.html', {'signup_error': 'Invalid User Details'})
 
         request.session['new_user'] = (user_details, participant_details)
 

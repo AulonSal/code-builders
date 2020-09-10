@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from phonenumber_field.modelfields import PhoneNumberField
 
 
 class TeamMember(models.Model):
@@ -10,4 +11,4 @@ class TeamMember(models.Model):
 class Participant(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     referrer = models.ForeignKey(TeamMember, on_delete=models.SET_NULL, null=True, blank=True)
-    contact_number = models.CharField(max_length=15)
+    contact_number = PhoneNumberField()
