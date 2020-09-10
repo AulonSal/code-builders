@@ -11,11 +11,12 @@
  
     <div class="main">
       <div class="container a-container" id="a-container">
-        <form class="form" id="a-form" method="" action="">
+        <form class="form" id="a-form" method="POST" action="">
+          {% csrf_token %}
           <h2 class="form_title title">Reset Password</h2>
  
-          <input class="form__input" type="text" placeholder="New Password" name = "email">
-          <input class="form__input" type="text" placeholder="Re-Enter Password" name = "email">
+          {{ form.new_password1 }}
+          {{ form.new_password2 }}
           <button class="form__button button submit">Set Password</button>
         </form>
       </div>

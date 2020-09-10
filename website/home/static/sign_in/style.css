@@ -95,7 +95,7 @@
     line-height: 2;
   }
 
-  input[type=email] {
+  input[type=email], input[type=password] {
     width: 350px;
     height: 40px;
     margin: 4px 0;
@@ -111,7 +111,7 @@
     box-shadow: inset 2px 2px 4px #d1d9e6, inset -2px -2px 4px #f9f9f9;
   }
 
-  input[type=email]:focus {
+  input[type=email]:focus, input[type=password]:focus {
     box-shadow: inset 4px 4px 4px #d1d9e6, inset -4px -4px 4px #f9f9f9;
   }
 

@@ -3,6 +3,7 @@
 <html>
   <head>
     <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,400i,700,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'sign_in/style.css' %}">
   </head>
     <style>
       body {
@@ -44,7 +45,9 @@
                 <i class="checkmark">✓</i>
             </div>
             <h1>Sent</h1> 
-            <p>A password reset link was mailed to you.<br> Please check your inbox</p>
+            <p>A password reset link was mailed to you<br>if an account exists with the email you entered.<br>Please check your inbox.If you don’t receive an email<br> please make sure you’ve entered the address you registered with<br>and check your spam folder.</p>
+            <br>
+            <button name="signin" type="submit" class="button" onclick="window.location.href='{% url 'home' %}'">Home</button>
             <br>
         </div>
     </body>
