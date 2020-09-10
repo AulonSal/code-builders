@@ -5,10 +5,17 @@ from django.shortcuts import render, redirect
 from django.views.decorators.http import require_http_methods
 from .models import Announcement
 from django.core.exceptions import ObjectDoesNotExist
+from django.views.decorators.clickjacking import xframe_options_sameorigin
 
 def home(request):
     return render(request, 'home/home.html')
 
+def contact_us(request):
+    return render(request, 'home/contact-us.html')
+
+@xframe_options_sameorigin
+def contact_frame(request):
+    return render(request, 'home/contact-template.html')
 
 @login_required
 def dashboard(request):
