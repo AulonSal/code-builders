@@ -116,7 +116,7 @@ def portal(request):
         context['order_id'] = order_id
         context['data_key'] = settings.PAY_KEY_ID
 
-        request.session['new_user'] = (user_details, participant_details)
+        request.session['new_user'] = serializers.serialize((user_details, participant_details))
 
         # Order payment
         return render(request, 'payments/confirm_order.html', context)
@@ -134,7 +134,7 @@ def payment_status(request):
         'razorpay_signature': response['razorpay_signature']
     }
 
-    user_details, participant_details = request.session['new_user']
+    user_details, participant_details = serializers.deserialize(request.session['new_user'])
 
     # VERIFYING SIGNATURE
     try:
