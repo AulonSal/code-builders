@@ -25,7 +25,7 @@
 
           <input class="form__input" type="text" name="name" placeholder="Name">
           <input class="form__input" type="Email" name="email" placeholder="Email">
-          <input class="form__input" type="number" name="username" placeholder="Enrollment No.">
+          <input class="form__input" type="number" name="username" placeholder="Enrollment Number">
           <input class="form__input" type="password" name="password" placeholder="Password">
           <input class="form__input" type="password" name="password-confirmation" placeholder="Confirm Password">
           <input class="form__input" type="tel" name="contact-no" placeholder="+91XXXXXXXXXX">
@@ -49,7 +49,7 @@
             </div>
             <br>
           {% endif %}
-          <input class="form__input" type="text" name="username" placeholder="Username">
+          <input class="form__input" type="text" name="username" placeholder="Enrollment Number">
           <input class="form__input" type="password" name="password" placeholder="Password"><a class="form__link" href="{% url 'password_reset' %}">Forgot your password?</a>
           <button name="signin" type="submit" class="button">SIGN IN</button>
         </form>
@@ -58,14 +58,14 @@
         <div class="switch__circle"></div>
         <div class="switch__circle switch__circle--t"></div>
         <div class="switch__container is-hidden" id="switch-c2">
-          <h2 class="switch__title title">Welcome Back !</h2>
-          <p class="switch__description description">To keep connected with us please login with your personal info</p>
+          <h2 class="switch__title title">Hello Friend !</h2>
+          <p class="switch__description description">Enter your personal details and start journey with us</p>
           <button class="switch__button button switch-btn">SIGN IN</button>
         </div>
         <div class="switch__container" id="switch-c1">
-          <h2 class="switch__title title">Hello Friend !</h2>
-          <p class="switch__description description">Enter your personal details and start journey with us</p>
-          <button class="switch__button button switch-btn">SIGN UP</button>
+            <h2 class="switch__title title">Welcome Back !</h2>
+            <p class="switch__description description">To keep connected with us please login with your personal info</p>
+            <button class="switch__button button switch-btn">SIGN UP</button>
         </div>
       </div>
     </div>
