@@ -23,7 +23,7 @@
             {% endfor %}
           {% endfor %}
           <input name="new_password1" class="form__input" type="password" placeholder="New Password">
-          <input name="new_password2" class="form__input" type="password" placeholder="ReEnter New Password">
+          <input name="new_password2" class="form__input" type="password" placeholder="Confirm Password">
           <button class="form__button button submit">Set Password</button>
         </form>
       </div>
@@ -31,7 +31,7 @@
         <div class="switch__circle"></div>
         <div class="switch__circle switch__circle--t"></div>
         <div class="switch__container" id="switch-c1">
-          <img src = "https://www.freeiconspng.com/thumbs/restart-icon/restart-icon-1.png" style = "height: 5rem">
+          <img src = "{% static 'home/img/restart.jpg' %}" style = "height: 5rem">
           <h2 class="switch__title title">Reset Password</h2>
           <p class="switch__description description">Enter New password and confirm to continue</p>
         </div>
