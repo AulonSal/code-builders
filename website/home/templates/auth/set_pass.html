@@ -14,7 +14,14 @@
         <form class="form" id="a-form" method="POST" action="">
           {% csrf_token %}
           <h2 class="form_title title">Reset Password</h2>
- 
+          {% for field in form %}
+            {% for error in field.errors %}
+              <div role="alert" style="padding: .5rem 2rem; background-color: #FFCCCB; border-radius: 2rem; ">
+                  <strong style="color: red;">{{ error }}</strong>
+              </div>
+              <br>
+            {% endfor %}
+          {% endfor %}
           {{ form.new_password1 }}
           {{ form.new_password2 }}
           <button class="form__button button submit">Set Password</button>
