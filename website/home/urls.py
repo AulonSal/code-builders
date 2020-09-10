@@ -9,9 +9,6 @@ urlpatterns = [
     path('announcements/', views.announcements, name='announcements'),
 
     # Auth
-    path('portal/', views.portal, name='portal'),
     path('logout/', views.logoutuser, name='logout'),
 
-    # Payments
-    path('payment-confirmed/', views.payment_status, name='payment_status',)
 ]
