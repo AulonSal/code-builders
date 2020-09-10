@@ -15,8 +15,15 @@
         <form class="form" id="a-form" method="post" action="{{ app_path }}">
                     {% csrf_token %}
           <h2 class="form_title title">Enter Email</h2>
- 
-          {{ form.email }}
+          {% for field in form %}
+            {% for error in field.errors %}
+              <div role="alert" style="padding: .5rem 2rem; background-color: #FFCCCB; border-radius: 2rem; ">
+                  <strong style="color: red;">{{ error }}</strong>
+              </div>
+              <br>
+            {% endfor %}
+          {% endfor %}
+          <input name="email" class="form__input" type="Email" placeholder="Email Address">
           <input type="submit" class="form__button button submit" value="Reset Password">
         </form>
       </div>
