@@ -116,7 +116,7 @@ def portal(request):
         context['data_key'] = settings.PAY_KEY_ID
 
         # Pass referrer id, skip serialisation
-        referrer_id = referrer.id
+        referrer_id = referrer.id if referrer else None
         request.session['new_user'] = (user_details, contact_number, referrer_id)
 
         # Order payment
@@ -136,7 +136,7 @@ def payment_status(request):
     }
 
     user_details, contact_number, referrer_id = request.session['new_user']
-    referrer = TeamMember.objects.get(id=referrer_id)
+    referrer = TeamMember.objects.get(id=referrer_id) if referrer_id else None
 
     # VERIFYING SIGNATURE
     try:
