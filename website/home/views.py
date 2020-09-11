@@ -15,6 +15,17 @@ def home(request):
 def contact_us(request):
     return render(request, 'home/contact-us.html')
 
+def policy(request):
+    return render(request, 'home/policies.html')
+
+def refund_policy(request):
+    return render(request, 'home/refundPolicy.html')
+
+def terms_conditions(request):
+    return render(request, 'home/termsAndConditions.html')
+
+def privacy_policy(request):
+    return render(request, 'home/privacyPolicy.html')
 
 @xframe_options_sameorigin
 def contact_frame(request):
