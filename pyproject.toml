@@ -12,6 +12,7 @@ razorpay = "^1.2.0"
 ipython = "^7.18.1"
 django-phonenumber-field = "^5.0.0"
 phonenumbers = "^8.12.9"
+hypercorn = "^0.10.2"
 
 [tool.poetry.dev-dependencies]
 
