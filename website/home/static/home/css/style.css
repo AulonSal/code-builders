@@ -371,6 +371,10 @@ text-decoration:none;
 		display: none;
 	}
 
+  .xbox .content {
+    width: unset !important;
+  }
+
 	.xbox .content h2{
 		margin-bottom: 20px;
 	}
