@@ -303,7 +303,7 @@ left: 50%;
 max-width: 100px;
 opacity: 1;
 box-shadow: 3px 3px 20px rgba(0, 0, 0, 0.5);
-border: 2px solid rgba(255, 255, 255, 1);
+border: 2px solid rgba(255, 255, 255, 0) !important;
 -webkit-transform: translate(-50%, -40%);
 transform: translate(-50%, -40%);
 z-index:99999;
