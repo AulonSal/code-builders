@@ -4,7 +4,7 @@
 
 {% block content %}
 		<!--ShowCase-->
-		<header class="showcase" style="background: url({% static 'home/img/front-end-web-development.jpg' %}) no-repeat center center/cover;">
+		<header class="showcase" style="background: url({% static 'home/img/tcb_5.png' %}) no-repeat center center/cover;">
 			<img src = "{% static 'home/img/logo3.png' %}" height = "50%">
 			<h2>The Code Builder</h2>
 			<p>
@@ -20,21 +20,6 @@
       		</a>
       		{% endif %}
 		</header>
-
-		
-		<!-- Xbox -->
-
-		<section class="xbox" style="background: url({% static 'home/img/xbox.png' %}) no-repeat center center/cover;">
-			<div class="content">
-				<h2>Event Pass</h2>
-		        <p>Xbox Game Pass Ultimate Xbox Live Gold and over 100 high-quality
-		          console and PC games. Play together with friends and discover your
-		          next favorite game.</p>
-		        <a href="{% url 'portal' %}" class="btn">
-		            Buy Now <i class="fas fa-chevron-right"></i>
-		        </a>
-			</div>
-		</section>
 		
 		<ul class="nav nav-tabs">
 			<li class="nav-item active"><a class="nav-link active" data-toggle="tab" href="#workshops">Bootcamps</a></li>
@@ -61,7 +46,13 @@
 								<div class="content">
 								<h2>Workshop Heading #1</h2>
 								<br>
-								<h4>Our Mentors :</h4>
+								<h3> About Workshop </h3>
+								<hr style="background-color: white;">
+								Xbox Game Pass Ultimate Xbox Live Gold and over 100 high-quality console and PC games. Play together with friends and discover your next favorite game.
+								Xbox Game Pass Ultimate Xbox Live Gold and over 100 high-quality console and PC games. Play together with friends and discover your next favorite game.
+								</p>
+								<br>
+								<h4>Companies :</h4>
 								<hr style="background-color: white;">
 								<div style="margin-left: 50%; transform: translateX(-50%)">
 									<figure style="display: inline-block; margin-right: 1rem">
@@ -76,10 +67,6 @@
 								<p>	Mentor 1 : Detail<br><br>
 								Mentor 2 : Detail					
 								<hr style="background-color: white">
-								<h3> About Workshop </h3>
-								Xbox Game Pass Ultimate Xbox Live Gold and over 100 high-quality console and PC games. Play together with friends and discover your next favorite game.
-								Xbox Game Pass Ultimate Xbox Live Gold and over 100 high-quality console and PC games. Play together with friends and discover your next favorite game.
-								</p>
 								<br><br><br>
 								</div>
 							</section>
@@ -141,7 +128,7 @@
 							</section>
 						</div>
 					</div>
-					<a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev" style="margin-left: 70%;">
+					<a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
 						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
 						<span class="sr-only">Previous</span>
 					</a>
@@ -244,7 +231,7 @@
 							</section>
 						</div>
 					</div>
-					<a class="carousel-control-prev" href="#carouselExampleControls_1" role="button" data-slide="prev" style="margin-left: 70%;">
+					<a class="carousel-control-prev" href="#carouselExampleControls_1" role="button" data-slide="prev">
 						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
 						<span class="sr-only">Previous</span>
 					</a>
@@ -256,18 +243,30 @@
 			</div>
 		</div>
 		<br><br>
+		<!-- Xbox -->
+
+		<section class="xbox" style="background: url({% static 'home/img/xbox.png' %}) no-repeat center center/cover;">
+			<div class="content">
+				<h2>Event Pass</h2>
+		        <p>Xbox Game Pass Ultimate Xbox Live Gold and over 100 high-quality
+		          console and PC games. Play together with friends and discover your
+		          next favorite game.</p>
+		        <a href="{% url 'portal' %}" class="btn">
+		            Buy Now <i class="fas fa-chevron-right"></i>
+		        </a>
+			</div>
+		</section>
+
+		<br>
       <!-- Carbon -->
-      <section class="carbon dark" style="	background: url({% static 'home/img/carbon.jpg' %}) no-repeat center center/cover;">
+      <section class="carb dark" style="background: url({% static 'home/img/carbon.jpg' %}) no-repeat center center/cover;">
         <div class="content">
           <h2>About Us</h2>
           <p>The amount of information will never cease existing and neither will the memory that serves the purpose. The more you accurately know about something, the greater will it reflect on you, be it the specialized skill to decode the bits or encode in bytes.
-Exploring all the encrypted data in the world is precisely what The Code Builder is all about which will offer an assemblage of courses for anyone to choose from to amplify their skills.
-The Code Builder aims to establish a dynamic community by catering to more than 2,500 aspiring Candidates. 
-By providing unique insights and solutions, the Code Builder will facilitate the students to enhance their prospects when it comes to the programming spectrum.
-</p>
-            <a href="{% url 'contact-us' %}" class="btn">
-              Contact Us <i class="fas fa-chevron-right"></i>
-            </a>
+			Exploring all the encrypted data in the world is precisely what The Code Builder is all about which will offer an assemblage of courses for anyone to choose from to amplify their skills.
+			The Code Builder aims to establish a dynamic community by catering to more than 2,500 aspiring Candidates. 
+			By providing unique insights and solutions, the Code Builder will facilitate the students to enhance their prospects when it comes to the programming spectrum.
+			</p>
         </div>
       </section>
 

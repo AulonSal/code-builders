@@ -4,8 +4,16 @@ margin: 0;
 padding: 0;
 }
 
+@font-face {
+font-family: 'Bebas';
+src: url('BebasNeue-Regular.ttf'); 
+src: 
+  url('BebasNeue-Regular.ttf') 
+  format('opentype');
+}
+
 body{
-font-family: 'Muli', sans-serif;
+font-family: 'Aquire';
 background: #fff;
 color: #000;
 font-size: 15px;
@@ -14,9 +22,9 @@ line-height: 1.5;
 
 @font-face {
 font-family: 'Aquire';
-src: url('AquireLight-YzE0o.otf'); 
+src: url('American_Purpose.ttf'); 
 src: 
-	url('AquireLight-YzE0o.otf') 
+	url('American_Purpose.ttf') 
 	format('opentype');
 }
 
@@ -194,9 +202,25 @@ width: 100%;
 .carbon .content{
 width: 55%;
 padding: 100px 0 0  30px;
+margin-left: 50%;
+transform: translateX(-50%);
 }
 
 .carbon .btn{
+margin-bottom: 2rem;
+}
+
+.carb{
+min-height: 350px;
+width: 100%;
+}
+
+.carb .content{
+width: 55%;
+padding: 100px 0 0  30px;
+}
+
+.carb .btn{
 margin-bottom: 2rem;
 }
 

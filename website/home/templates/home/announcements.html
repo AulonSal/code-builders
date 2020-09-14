@@ -12,7 +12,7 @@
 
             <!--NAV BAR-->
             <nav class="main-nav">
-                <a href = "{% url 'home' %}"><img src="https://see.fontimg.com/api/renderfont4/YzE0o/eyJyIjoiZnMiLCJoIjo4MSwidyI6MTI1MCwiZnMiOjY1LCJmZ2MiOiIjMDAwMDAwIiwiYmdjIjoiI0ZGRkZGRiIsInQiOjF9/VGhlIGNvZGUgYnVpbGRlcg/aquire-light.png" alt="Microsoft" class="logo"></a>
+                <a href = "{% url 'home' %}"><img src="{% static 'home/img/title.png' %}" alt="Microsoft" class="logo"></a>
                 {% if user.is_authenticated %}
                 <ul class="right-menu">
                     <li><a href="{% url 'announcements' %}" style = "color: #262626; text-decoration: none"><i class="fas fa-bell"></i> Announcements </a></li>
@@ -28,7 +28,7 @@
             </nav>
             <br>
             <!--ShowCase-->
-            <header class="showcase" style="background: url({% static 'home/img/front-end-web-development.jpg' %}) no-repeat center center/cover;">
+            <header class="showcase" style="background: url({% static 'home/img/tcb_5.png' %}) no-repeat center center/cover;">
                 <img src = "{% static 'home/img/logo3.png' %}" height = "50%">
                 <h2>The Code Builder</h2>
                 <p>
@@ -44,7 +44,7 @@
         {% for announcement in announcements %}
         <div class="courses-container">
             <div class="course">
-                <div class="course-preview" style="background: url({% static 'home/img/front-end-web-development.jpg' %}) no-repeat center center/cover;">
+                <div class="course-preview" style="background: url({% static 'home/img/tcb_5.png' %}) no-repeat center center/cover; width: 50%">
                     <h5>Announcement {{ forloop.counter }}</h5>
                     <h2>{{ announcement.title }}</h2>
                 </div>

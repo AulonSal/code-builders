@@ -22,7 +22,7 @@
 
 		<!--NAV BAR-->
 		<nav class="main-nav">
-			<a href = "{% url 'home' %}"><img src="https://see.fontimg.com/api/renderfont4/YzE0o/eyJyIjoiZnMiLCJoIjo4MSwidyI6MTI1MCwiZnMiOjY1LCJmZ2MiOiIjMDAwMDAwIiwiYmdjIjoiI0ZGRkZGRiIsInQiOjF9/VGhlIGNvZGUgYnVpbGRlcg/aquire-light.png" alt="Microsoft" class="logo"></a>
+			<a href = "{% url 'home' %}"><img src="{% static 'home/img/title.png' %}" alt="Microsoft" class="logo"></a>
 			{% if user.is_authenticated %}
 			<ul class="right-menu" style="margin-top: 1rem">
 				<li><a href="{% url 'announcements' %}" style = "color: #262626; text-decoration: none"><i class="fas fa-bell"></i> Announcements </a></li>
@@ -55,10 +55,13 @@
       <!--Follow-->
       <section class="follow" style = "float: right;">
       	<p>
+		  	<a href="{% url 'contact-us' %}" style='margin-left: 1rem; text-decoration: none'>
+              Contact Us
+            </a>
 			<a href="{% url 'policy' %}" target="_blank" style='margin-left: 1rem; text-decoration: none'>
 				<i class="fas fa-shield-alt"></i>Policies
 			</a>
-			© The Code Builder
+			<i class="fas fa-copyright"></i> The Code Builder
 		</p>
       </section>
     </div>
