@@ -10,7 +10,7 @@ from .models import Announcement, Event, EventCategory
 
 
 def home(request):
-    event_categories = EventCategory.objects.all()
+    event_categories = EventCategory.objects.all().order_by('index')
     return render(request, 'home/home.html', dict(
         event_categories=event_categories,
     ))
