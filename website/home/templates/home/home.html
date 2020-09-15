@@ -8,7 +8,7 @@
         <img src="{% static 'home/img/logo3.png' %}" height="50%">
         <h2>The Code Builder</h2>
         <p>
-            Formal Description
+            The Code Builder is a series of a wide range of events to be held in the month of October 2020, completely safe and virtual.
         </p>
         {% if not user.is_authenticated %}
             <a href="{% url 'portal' %}" class="btn">
@@ -45,7 +45,7 @@
                         {% for event in events %}
                             <div class="carousel-item {% if forloop.first %}active{% endif %}">
                                 <section class="carbon dark"
-                                         style="background: url('https://wallpaperaccess.com/full/2109.jpg') no-repeat center center/cover;">
+                                         style="background: url({% static 'home/img/comp_1.png'%}) no-repeat center center/cover;">
                                     <div class="content">
                                         <h2>{{ event.title }}</h2>
                                         <br>
@@ -92,26 +92,32 @@
     </div>
     <br><br>
     <!-- Xbox -->
-
-    <section class="xbox" style="background: url({% static 'home/img/xbox.png' %}) no-repeat center center/cover;">
-        <div class="content">
-            <h2>Event Pass</h2>
-            <p>Xbox Game Pass Ultimate Xbox Live Gold and over 100 high-quality
-                console and PC games. Play together with friends and discover your
-                next favorite game.</p>
-            <a href="{% url 'portal' %}" class="btn">
-                Buy Now <i class="fas fa-chevron-right"></i>
-            </a>
-        </div>
-    </section>
-
+    {% if not user.is_authenticated %}
+        <section class="xbox" style="background: url({% static 'home/img/xbox.png' %}) no-repeat center center/cover;">
+            <div class="content">
+                <h2>Event Pass</h2>
+                <p>A single pass grants you access to everything, that will be held as a part of The Code Builder.</p>
+                <a href="{% url 'portal' %}" class="btn">
+                    Buy Now <i class="fas fa-chevron-right"></i>
+                </a>
+            </div>
+        </section>
+    {% endif %}
     <br>
     <!-- Carbon -->
     <section class="carb dark"
              style="background: url({% static 'home/img/carbon.jpg' %}) no-repeat center center/cover;">
         <div class="content">
             <h2>About Us</h2>
-            <p>The amount of information will never cease existing and neither will the memory that serves the purpose.
+            <p>
+            Join us for a truly enriching experience and to be a part of multiple Bootcamps, Workshops, Talks, Summits, Competitions and Courses, on technical as well as non technical domains, as well as interactions with celebrities and influencers, of the likes of Vir Das ;)
+            </p>
+            <p>
+            The topics for these include computer science, programming, artificial intelligence, website and app development, game development, IoT, Cryptocurrency and Blockchain, Digital Marketing, Finance and Investing, Entrepreneurship, Blogging/Content writing and much much more!
+            You'll be a part of something, on nearly each and everyday of the month of October 2020. </p>           
+            </p>
+            <p>
+            The amount of information will never cease existing and neither will the memory that serves the purpose.
                 The more you accurately know about something, the greater will it reflect on you, be it the specialized
                 skill to decode the bits or encode in bytes.
                 Exploring all the encrypted data in the world is precisely what The Code Builder is all about which will
@@ -121,6 +127,7 @@
                 By providing unique insights and solutions, the Code Builder will facilitate the students to enhance
                 their prospects when it comes to the programming spectrum.
             </p>
+            <br><br><br>
         </div>
     </section>
 
