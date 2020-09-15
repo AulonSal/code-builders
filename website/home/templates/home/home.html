@@ -20,26 +20,23 @@
       		</a>
       		{% endif %}
 		</header>
-		{% for event_category in event_categories %}
 		<ul class="nav nav-tabs">
-            {% if forloop.first %}
-			<li class="nav-item active"><a class="nav-link active" data-toggle="tab" href="#{{ event_category.type }}">{{ event_category.type }}</a></li>
-		    {% else %}
-            <li class="nav-item active"><a class="nav-link" data-toggle="tab" href="#{{ event_category.type }}">{{ event_category.type }}</a></li>
+            {% for event_category in event_categories %}
+			<li class="nav-item {% if forloop.first %}active{% endif %}"><a class="nav-link {% if forloop.first %}active{% endif %}" data-toggle="tab" href="#{{ event_category.type|slugify }}">{{ event_category.type }}</a></li>
+            {% endfor %}
         </ul>
-        {% endfor %}
 
 		<div class="tab-content">
         {% for event_category in event_categories %}
-			<div id="{{ event_category.type }}" class="tab-pane fade show {% if forloop.first %}active{% endif %}">
-				<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+			<div id="{{ event_category.type|slugify }}" class="tab-pane fade show {% if forloop.first %}active{% endif %}">
+				<div id="carouselExampleControls_{{ forloop.counter0 }}" class="carousel slide" data-ride="carousel">
 					<ol class="carousel-indicators">
-                        {% for event in events %}
-						<li data-target="#carouselExampleIndicators" data-slide-to="{{ forloop.counter0 }}" class="{% if forloop.first %}active{% endif %}"></li>
+                        {% for event in event_category.event_set.all %}
+						<li data-target="#carouselExampleControls_{{ forloop.parentloop.counter0 }}" data-slide-to="{{ forloop.counter0 }}" class="{% if forloop.first %}active{% endif %}"></li>
                         {% endfor %}
 					</ol>
 					<div class="carousel-inner">
-                        {% for event in events %}
+                        {% for event in event_category.event_set.all %}
 						<div class="carousel-item {% if forloop.first %}active{% endif %}">
 							<section class="carbon dark" style = "background: url('https://wallpaperaccess.com/full/2109.jpg') no-repeat center center/cover;">
 								<div class="content">
@@ -69,18 +66,19 @@
 								</div>
 							</section>
 						</div>
-                    {% endfor %}
+                            {% endfor %}
 					</div>
-					<a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+					<a class="carousel-control-prev" href="#carouselExampleControls_{{ forloop.counter0 }}" role="button" data-slide="prev">
 						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
 						<span class="sr-only">Previous</span>
 					</a>
-					<a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+					<a class="carousel-control-next" href="#carouselExampleControls_{{ forloop.counter0 }}" role="button" data-slide="next">
 						<span class="carousel-control-next-icon" aria-hidden="true"></span>
 						<span class="sr-only">Next</span>
 					</a>
 				</div>
 			</div>
+        {% endfor %}
 		</div>
 		<br><br>
 		<!-- Xbox -->
@@ -104,7 +102,7 @@
           <h2>About Us</h2>
           <p>The amount of information will never cease existing and neither will the memory that serves the purpose. The more you accurately know about something, the greater will it reflect on you, be it the specialized skill to decode the bits or encode in bytes.
 			Exploring all the encrypted data in the world is precisely what The Code Builder is all about which will offer an assemblage of courses for anyone to choose from to amplify their skills.
-			The Code Builder aims to establish a dynamic community by catering to more than 2,500 aspiring Candidates. 
+			The Code Builder aims to establish a dynamic community by catering to more than 2,500 aspiring Candidates.
 			By providing unique insights and solutions, the Code Builder will facilitate the students to enhance their prospects when it comes to the programming spectrum.
 			</p>
         </div>
