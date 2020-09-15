@@ -12,11 +12,19 @@ src:
   format('opentype');
 }
 
+@font-face {
+font-family: 'AC';
+src: url('AquireLight-YzE0o.otf');
+src:
+  url('AquireLight-YzE0o.otf')
+  format('opentype');
+}
+
 body{
-font-family: 'Aquire';
+font-family: 'AC';
 background: #fff;
 color: #000;
-font-size: 15px;
+font-size: 18px;
 line-height: 1.5;
 }
 
