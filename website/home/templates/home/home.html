@@ -49,7 +49,15 @@
                                     <div class="content">
                                         <h2>{{ event.title }}</h2>
                                         <br>
-                                        <h3> About Workshop </h3>
+                                        {% if event.image_1 %}
+                                        <img src="{{ event.image_1.url }}" style="height: 7rem;">
+                                        {% endif %}
+                                        {% if event.image_2 %}
+                                        <img src="{{ event.image_2.url }}" style="height: 7rem; margin-left: 2rem;">
+                                        {% endif %}
+                                        <br>
+                                        <br>
+                                        <h3> About  </h3>
                                         <hr style="background-color: white;">
                                         {{ event.description }}
                                         </p>
@@ -98,7 +106,7 @@
                 <h2>Event Pass</h2>
                 <p>A single pass grants you access to everything, that will be held as a part of The Code Builder.</p>
                 <a href="{% url 'portal' %}" class="btn">
-                    Buy Now <i class="fas fa-chevron-right"></i>
+                    Buy Now (₹2100) <i class="fas fa-chevron-right"></i>
                 </a>
             </div>
         </section>

@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.text import slugify
 from phonenumber_field.modelfields import PhoneNumberField
 
 
@@ -42,13 +43,21 @@ class EventCategory(models.Model):
         return f"{self.name}"
 
 
+def get_image_filename(instance, filename):
+    title = instance.title
+    slug = slugify(title)
+    return "event_images/%s-%s" % (slug, filename)
+
+
 class Event(models.Model):
     title = models.CharField(max_length=80)
     description = models.TextField()
     date = models.DateField(blank=True, null=True)
+    image_1 = models.ImageField(blank=True, null=True, upload_to=get_image_filename, verbose_name='First Image')
+    image_2 = models.ImageField(blank=True, null=True, upload_to=get_image_filename, verbose_name='Second Image')
     category = models.ForeignKey(EventCategory, on_delete=models.SET_NULL, null=True, blank=True)
-    created_on = models.DateTimeField(auto_now=True)
     index = models.IntegerField(blank=True, null=True)
+    created_on = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name = 'Event'

@@ -86,17 +86,17 @@ def portal(request):
 
     # Transaction Details
     # TODO: MOVE to db
-    discount_multiplier = 0.8
+    discount_multiplier = 0.84
 
     general_details = {
-        'amount': 1000,
+        'amount': 210000,
         'currency': 'INR',
         'notes': {
             'Purpose': 'EVENT PASS',
         },
     }
 
-    general_details['amount'] = general_details['amount'] * discount_multiplier if referral_code else \
+    general_details['amount'] = (general_details['amount'] * discount_multiplier + 600)if referral_code else \
         general_details['amount']
 
     client_details = {
