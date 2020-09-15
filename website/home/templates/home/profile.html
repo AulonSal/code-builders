@@ -28,7 +28,10 @@
                                 {{ user.teammember.referral_code }} | #{{ referral_count }}
 							</div>
                             {% endif %}
-							<br>
+                        <br>
+                            {% if user.is_staff or user.is_superuser %}
+                                <a href="{% url 'admin_dashboard' %}" class="alert alert-primary" role="alert" style = "width: 60%; margin: auto; text-decoration: none;"> REFERRAL DATA </a>
+                            {% endif %}
 						</div>
 				    </div>
 			</div>

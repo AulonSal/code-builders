@@ -2,11 +2,13 @@ from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
+from django.db.models import Count
 from django.shortcuts import render, redirect
 from django.views.decorators.clickjacking import xframe_options_sameorigin
 from django.views.decorators.http import require_http_methods
+from django.contrib.admin.views.decorators import staff_member_required
 
-from .models import Announcement, Event, EventCategory
+from .models import Announcement, TeamMember, EventCategory
 
 
 def home(request):
@@ -67,3 +69,8 @@ def logoutuser(request):
     logout(request)
     messages.add_message(request, messages.INFO, 'Logout successful')
     return redirect('/')
+
+@staff_member_required
+def admindashboard(request):
+    teammembers = TeamMember.objects.annotate(referrals=Count('participant'))
+    return render(request, 'home/adminDashboard.html', {'teammembers':teammembers})

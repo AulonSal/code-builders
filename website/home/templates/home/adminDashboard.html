@@ -1,0 +1,13 @@
+{% extends 'home/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+    {% for teammember in teammembers %}
+    <div class="alert alert-primary" role="alert" style = "width: 60%; margin: auto; text-align: center;">
+        {{ teammember.user.username }}&nbsp&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp&nbsp{{ teammember.referrals }}
+    </div>
+    {% endfor %}
+
+{% endblock %}
