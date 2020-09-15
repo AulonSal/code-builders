@@ -31,6 +31,7 @@ class Announcement(models.Model):
 
 class EventCategory(models.Model):
     type = models.CharField(max_length=80)
+    index = models.IntegerField(blank=True, null=True)
 
     class Meta:
         verbose_name = 'Event Category'
@@ -44,8 +45,8 @@ class Event(models.Model):
     title = models.CharField(max_length=80)
     description = models.TextField()
     date = models.DateField(blank=True, null=True)
-    created_on = models.DateTimeField(auto_now=True)
     category = models.ForeignKey(EventCategory, on_delete=models.SET_NULL, null=True, blank=True)
+    created_on = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name = 'Event'
