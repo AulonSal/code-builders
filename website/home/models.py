@@ -30,7 +30,7 @@ class Announcement(models.Model):
 
 
 class EventCategory(models.Model):
-    type = models.CharField(max_length=80)
+    name = models.CharField(max_length=80)
     index = models.IntegerField(blank=True, null=True)
 
     class Meta:
@@ -38,7 +38,7 @@ class EventCategory(models.Model):
         verbose_name_plural = 'Event Categories'
 
     def __str__(self):
-        return f"{self.type}"
+        return f"{self.name}"
 
 
 class Event(models.Model):
