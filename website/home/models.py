@@ -36,6 +36,7 @@ class EventCategory(models.Model):
     class Meta:
         verbose_name = 'Event Category'
         verbose_name_plural = 'Event Categories'
+        ordering = ('index',)
 
     def __str__(self):
         return f"{self.name}"
@@ -47,10 +48,12 @@ class Event(models.Model):
     date = models.DateField(blank=True, null=True)
     category = models.ForeignKey(EventCategory, on_delete=models.SET_NULL, null=True, blank=True)
     created_on = models.DateTimeField(auto_now=True)
+    index = models.IntegerField(blank=True, null=True)
 
     class Meta:
         verbose_name = 'Event'
         verbose_name_plural = 'Events'
+        ordering = ('index',)
 
     def __str__(self):
         return f"{self.title}, {self.category}"
