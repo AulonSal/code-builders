@@ -1,31 +1,40 @@
 from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
-from django.views.decorators.http import require_http_methods
-from .models import Announcement
 from django.core.exceptions import ObjectDoesNotExist
+from django.shortcuts import render, redirect
 from django.views.decorators.clickjacking import xframe_options_sameorigin
+from django.views.decorators.http import require_http_methods
+
+from .models import Announcement, Event, EventCategory
 
 
 def home(request):
-    return render(request, 'home/home.html')
+    event_categories = EventCategory.objects.all()
+    return render(request, 'home/home.html', dict(
+        event_categories=event_categories,
+    ))
 
 
 def contact_us(request):
     return render(request, 'home/contact-us.html')
 
+
 def policy(request):
     return render(request, 'home/policies.html')
+
 
 def refund_policy(request):
     return render(request, 'home/refundPolicy.html')
 
+
 def terms_conditions(request):
     return render(request, 'home/termsAndConditions.html')
 
+
 def privacy_policy(request):
     return render(request, 'home/privacyPolicy.html')
+
 
 @xframe_options_sameorigin
 def contact_frame(request):
