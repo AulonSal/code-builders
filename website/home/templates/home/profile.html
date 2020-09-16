@@ -21,20 +21,22 @@
                         <small><i class="fas fa-phone"></i> - {{ user.participant.contact_number }}</small></h2>
                     <br>
                     {% if user.teammember %}
-                    {% with teammember=user.teammember %}
-                        <div class="alert alert-primary" role="alert" style="width: 60%; margin: auto">
-                            {{ teammember.referral_code }} | #{{ referral_count }}
-                        </div>
-                    <br>
-                         <a href="{% url 'teammember-dashboard'  user.id %}" class="alert alert-primary" role="alert"
-                           style="width: 60%; margin: auto; text-decoration: none;"> TEAMMEMBER REFERRAL DATA </a>
-                    {% endwith %}
+                        {% with teammember=user.teammember %}
+                            <div class="alert alert-primary" role="alert" style="width: 60%; margin: auto">
+                                {{ teammember.referral_code }} | #{{ referral_count }}
+                            </div>
+                            <br>
+                            <a href="{% url 'teammember-dashboard'  user.id %}" class="alert alert-primary" role="alert"
+                               style="width: 60%; margin: auto; text-decoration: none;"> TEAMMEMBER REFERRAL DATA </a>
+                        {% endwith %}
                     {% endif %}
                     <br><br>
                     {% if user.is_staff or user.is_superuser %}
                         <a href="{% url 'admin_dashboard' %}" class="alert alert-primary" role="alert"
                            style="width: 60%; margin: auto; text-decoration: none;"> ALL REFERRAL DATA </a>
                     {% endif %}
+                    <br>
+                    <br>
                 </div>
             </div>
         </div>
