@@ -101,7 +101,7 @@ def admindashboard(request):
     nonreferral_participants = Participant.objects.filter(referrer=None).count()
     total_referrals = total_participants - nonreferral_participants
 
-    return render(request, 'home/adminDashboard.html',dict(
+    return render(request, 'home/adminDashboard.html', dict(
         teammembers=teammembers,
         total_participants=total_participants,
         nonreferral_participants=nonreferral_participants,
