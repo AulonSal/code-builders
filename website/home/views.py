@@ -8,7 +8,7 @@ from django.shortcuts import render, redirect
 from django.views.decorators.clickjacking import xframe_options_sameorigin
 from django.views.decorators.http import require_http_methods
 
-from .models import Announcement, TeamMember, EventCategory, User
+from .models import Announcement, TeamMember, EventCategory, User, Participant
 
 
 def home(request):
@@ -97,4 +97,13 @@ def logoutuser(request):
 @staff_member_required
 def admindashboard(request):
     teammembers = TeamMember.objects.annotate(referrals=Count('participant'))
-    return render(request, 'home/adminDashboard.html', {'teammembers': teammembers})
+    total_participants = Participant.objects.count()
+    nonreferral_participants = Participant.objects.filter(referrer=None).count()
+    total_referrals = total_participants - nonreferral_participants
+
+    return render(request, 'home/adminDashboard.html',dict(
+        teammembers=teammembers,
+        total_participants=total_participants,
+        nonreferral_participants=nonreferral_participants,
+        total_referrals=total_referrals,
+    ))

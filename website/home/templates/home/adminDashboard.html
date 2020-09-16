@@ -4,8 +4,18 @@
 
 {% block content %}
 
+    <br>
+    <hr>
+    <br>
+    <div class="alert alert-primary" role="alert" style="width: 60%; margin: auto; text-align: center;">
+        Total Participants &nbsp #{{ total_participants }} |
+        Total Non-Referrals &nbsp #{{ nonreferral_participants }} |
+        Total Referrals &nbsp #{{ total_referrals }} |
+    </div>
+    <br>
+
     {% for teammember in teammembers %}
-        <a href="{% url 'teammember-dashboard' teammember.user.id %}">
+        <a href="{% url 'teammember-dashboard' teammember.user.id %}" style="text-decoration: none">
             <div class="alert alert-primary" role="alert" style="width: 60%; margin: auto; text-align: center;">
                 {{ teammember.user.username }}&nbsp&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp&nbsp{{ teammember.referrals }}
             </div>
