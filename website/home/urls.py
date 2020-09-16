@@ -18,6 +18,7 @@ urlpatterns = [
     path('admin-dashboard/', views.admindashboard, name='admin_dashboard'),
     # Auth
     path('logout/', views.logoutuser, name='logout'),
+    path('team-dashboard/<int:pk>', views.teammember_dashboard, name='teammember-dashboard'),
 
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

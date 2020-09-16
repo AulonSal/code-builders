@@ -4,37 +4,40 @@
 
 {% block content %}
 
-		<br>
-		<br>
-		<br>
-		<div class = "row">
-			<div class="col-md-2"></div>
-			<div class="col-md-8">
-					<div class="card profile-card-3">
-						<div class="background-block">
-							<img src="{% static 'home/img/tcb_5.png' %}" alt="profile-sample1" class="background"/>
-						</div>
-						<div class="profile-thumb-block">
-							<img src="{% static '/home/img/user.png' %}" alt="profile-image" class="profile"/>
-						</div>
-						<div class="card-content">
-							<h2>{{ user.first_name }}
-								<small><i class="fas fa-hashtag"></i> - {{ user.username }}</small>
-								<small><i class="fas fa-envelope"></i> - {{ user.email }}</small>
-								<small><i class="fas fa-phone"></i> - {{ user.participant.contact_number }}</small></h2>
-								<br>
-                            {% if user.teammember.referral_code %}
-							<div class="alert alert-primary" role="alert" style = "width: 60%; margin: auto">
-                                {{ user.teammember.referral_code }} | #{{ referral_count }}
-							</div>
-                            {% endif %}
-                        <br>
-                            {% if user.is_staff or user.is_superuser %}
-                                <a href="{% url 'admin_dashboard' %}" class="alert alert-primary" role="alert" style = "width: 60%; margin: auto; text-decoration: none;"> REFERRAL DATA </a>
-                            {% endif %}
-						</div>
-				    </div>
-			</div>
-			<div class="col-md-2"></div>
-		</div>
+    <br>
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div class="card profile-card-3">
+                <div class="background-block">
+                    <img src="{% static 'home/img/tcb_5.png' %}" alt="profile-sample1" class="background"/>
+                </div>
+                <div class="card-content">
+                    <h2>{{ user.first_name }}
+                        <small><i class="fas fa-hashtag"></i> - {{ user.username }}</small>
+                        <small><i class="fas fa-envelope"></i> - {{ user.email }}</small>
+                        <small><i class="fas fa-phone"></i> - {{ user.participant.contact_number }}</small></h2>
+                    <br>
+                    {% if user.teammember %}
+                    {% with teammember=user.teammember %}
+                        <div class="alert alert-primary" role="alert" style="width: 60%; margin: auto">
+                            {{ teammember.referral_code }} | #{{ referral_count }}
+                        </div>
+                    <br>
+                         <a href="{% url 'teammember-dashboard'  user.id %}" class="alert alert-primary" role="alert"
+                           style="width: 60%; margin: auto; text-decoration: none;"> TEAMMEMBER REFERRAL DATA </a>
+                    {% endwith %}
+                    {% endif %}
+                    <br><br>
+                    {% if user.is_staff or user.is_superuser %}
+                        <a href="{% url 'admin_dashboard' %}" class="alert alert-primary" role="alert"
+                           style="width: 60%; margin: auto; text-decoration: none;"> ALL REFERRAL DATA </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
 {% endblock %}

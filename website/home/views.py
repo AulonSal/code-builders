@@ -1,14 +1,14 @@
 from django.contrib import messages
+from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist, PermissionDenied
 from django.db.models import Count
 from django.shortcuts import render, redirect
 from django.views.decorators.clickjacking import xframe_options_sameorigin
 from django.views.decorators.http import require_http_methods
-from django.contrib.admin.views.decorators import staff_member_required
 
-from .models import Announcement, TeamMember, EventCategory
+from .models import Announcement, TeamMember, EventCategory, User
 
 
 def home(request):
@@ -51,10 +51,33 @@ def dashboard(request):
 @login_required
 def profile(request):
     try:
-        referral_count = request.user.teammember.participant_set.count()
+        participants = request.user.teammember.participant_set.all()
+        referral_count = participants.count()
     except ObjectDoesNotExist:
         referral_count = None
-    return render(request, 'home/profile.html', {'referral_count': referral_count})
+    return render(request, 'home/profile.html', dict(
+        referral_count=referral_count,
+    ))
+
+
+@login_required
+def teammember_dashboard(request, pk):
+    if not (request.user.id == pk or request.user.is_staff):
+        print('fucked')
+        raise PermissionDenied
+
+    try:
+        user = User.objects.get(id=pk)
+        participants = user.teammember.participant_set.all()
+        referral_count = participants.count()
+    except ObjectDoesNotExist:
+        print('fucked backwards')
+        raise PermissionDenied
+
+    return render(request, 'home/team_dashboard.html', dict(
+        referral_count=referral_count,
+        participants=participants,
+    ))
 
 
 @login_required
@@ -70,7 +93,8 @@ def logoutuser(request):
     messages.add_message(request, messages.INFO, 'Logout successful')
     return redirect('/')
 
+
 @staff_member_required
 def admindashboard(request):
     teammembers = TeamMember.objects.annotate(referrals=Count('participant'))
-    return render(request, 'home/adminDashboard.html', {'teammembers':teammembers})
+    return render(request, 'home/adminDashboard.html', {'teammembers': teammembers})
