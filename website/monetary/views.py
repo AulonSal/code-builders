@@ -39,11 +39,11 @@ def portal(request):
         return redirect('/')
 
     name = request.POST['name']
-    username = request.POST['username']
     password = request.POST['password']
     password_confirmation = request.POST['password-confirmation']
     referral_code = request.POST['referral-code']
     email = request.POST['email']
+    username = email
     contact_number = request.POST['contact-no']
 
     # SIGNUP Request
@@ -132,7 +132,7 @@ def payment_status(request):
     params_dict = {
         'razorpay_payment_id': response['razorpay_payment_id'],
         'razorpay_order_id': response['razorpay_order_id'],
-        'razorpay_signature': response['razorpay_signature']
+        'razorpay_signature': response['razorpay_signature'],
     }
 
     user_details, contact_number, referrer_id = request.session['new_user']
