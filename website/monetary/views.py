@@ -1,5 +1,6 @@
+import logging
+
 import razorpay
-from razorpay.errors import SignatureVerificationError
 from django.conf import settings
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
@@ -8,9 +9,11 @@ from django.db import IntegrityError
 from django.shortcuts import redirect
 from django.shortcuts import render
 from django.views.decorators.http import require_http_methods
+from razorpay.errors import SignatureVerificationError
 
 from home.models import TeamMember, Participant
 
+logger = logging.getLogger('website.monetary')
 client = razorpay.Client(auth=(settings.PAY_KEY_ID, settings.PAY_SECRET_KEY))
 
 
@@ -137,6 +140,11 @@ def payment_status(request):
 
     user_details, contact_number, referrer_id = request.session['new_user']
     referrer = TeamMember.objects.get(id=referrer_id) if referrer_id else None
+
+    info_log = f"""User Details: {user_details} \nContact Number: {contact_number} \nReferrer Id: {referrer_id} \n\
+    Razorpay details: {params_dict}"""
+
+    logger.info(info_log)
 
     # VERIFYING SIGNATURE
     try:
