@@ -9,7 +9,7 @@ class TeamMember(models.Model):
     referral_code = models.CharField(max_length=16)
 
     def __str__(self):
-        return f"{self.user.first_name}"
+        return f"{self.user.username}"
 
 
 class Participant(models.Model):
