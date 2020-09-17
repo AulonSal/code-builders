@@ -11,7 +11,7 @@
     {% for participant in participants %}
         {% with participant_user=participant.user %}
             <div class="alert alert-primary" role="alert" style="width: 60%; margin: auto">
-                {{ participant_user.username }} | {{ participant_user.first_name }} | {{ participant_user.email }}
+                {{ participant_user.first_name }} | {{ participant_user.email }}
                 | {{ participant.contact_number }}
             </div>
         {% endwith %}
