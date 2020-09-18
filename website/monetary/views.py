@@ -122,6 +122,11 @@ def portal(request):
         referrer_id = referrer.id if referrer else None
         request.session['new_user'] = (user_details, contact_number, referrer_id)
 
+        # Log before payments
+        user_log_details = {k: v for k, v in user_details if k != 'password'}
+        pre_log = f"""BEFORE_PAYMENT: User Details: {user_log_details}\n Participant Details: {participant_details}"""
+        logger.info(pre_log)
+
         # Order payment
         return render(request, 'payments/confirm_order.html', context)
 
@@ -141,7 +146,9 @@ def payment_status(request):
     user_details, contact_number, referrer_id = request.session['new_user']
     referrer = TeamMember.objects.get(id=referrer_id) if referrer_id else None
 
-    info_log = f"""User Details: {user_details} \nContact Number: {contact_number} \nReferrer Id: {referrer_id} \n\
+    user_log_details = {k: v for k, v in user_details if k != 'password'}
+
+    info_log = f"""AFTER_PAYMENT: User Details: {user_log_details} \nContact Number: {contact_number} \nReferrer Id: {referrer_id} \n\
     Razorpay details: {params_dict}"""
 
     logger.info(info_log)
