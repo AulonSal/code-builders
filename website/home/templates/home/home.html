@@ -145,5 +145,19 @@
             <br><br><br>
         </div>
     </section>
+    <br><br>
+    <!-- Xbox -->
+    {% if not user.is_authenticated %}
+        <section class="xbox" style="background: url({% static 'home/img/xbox.png' %}) no-repeat center center/cover;">
+            <div class="content">
+                <h2>Join Our Team!</h2>
+                <p>Interested? Get interned at the code builder !</p>
+                <a href="http://bit.ly/thecodebuilder" class="btn">
+                    Join Us <i class="fas fa-chevron-right"></i>
+                </a>
+            </div>
+        </section>
+    {% endif %}
+    <br>
 
 {% endblock %}

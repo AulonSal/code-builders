@@ -7,6 +7,7 @@
   <title>Login/Registration</title>
   <link rel="shortcut icon" type="image/png" href="{% static 'home/img/icon.png' %}"/>
   <link rel="stylesheet" href="{% static 'sign_in/style.css' %}">
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 </head>
 <body>
  
@@ -32,7 +33,9 @@
           (please add +91 or your country code before your number.)
           <input class="form__input" type="tel" name="contact-no" placeholder="+91XXXXXXXXXX">
           <input class="form__input" type="text" name="referral-code" placeholder="Referral Code (optional)">
-          <button type="submit" name="signup" class="button">SIGN UP</button>
+          <br>
+          <div style="display: block"><input id="accept" name="accept" type="checkbox" value="y" onclick="myFunction()"/>&nbsp&nbsp&nbsp* I have read the <a href = "{% url 'termsAndConditions' %}" style="text-decoration: none">T&C</a></div>
+          <button type="submit" id="submitbtn" name="signup" class="button" disabled>SIGN UP</button>
         </form>
       </div>
       <div class="container a-container" id="a-container">
@@ -71,7 +74,12 @@
         </div>
       </div>
     </div>
- 
+  
+  <script>
+    function myFunction() {
+      document.getElementById("submitbtn").disabled = false;
+    }
+  </script>
   <script  src="{% static 'sign_in/function.js' %}"></script>
  
 </body>
