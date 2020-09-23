@@ -39,6 +39,18 @@ def portal(request):
             return render(request, 'sign_in/sign.html',
                           {'signin_error': 'Invalid Credentials.'})
 
+        # If user is participant and has not paid, delete user
+        try:
+            participant = user.participant
+
+            if participant.paid is False:
+                user.delete()
+                return render(request, 'sign_in/sign.html',
+                              {'signin_error': 'Invalid Credentials.'})
+
+        except ObjectDoesNotExist:
+            pass
+
         login(request, user)
         return redirect('/')
 
