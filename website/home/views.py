@@ -51,7 +51,7 @@ def dashboard(request):
 @login_required
 def profile(request):
     try:
-        participants = request.user.teammember.participant_set.all()
+        participants = request.user.teammember.participant_set.filter(paid=True)
         referral_count = participants.count()
     except ObjectDoesNotExist:
         referral_count = None
