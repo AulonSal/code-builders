@@ -4,10 +4,11 @@ import razorpay
 from django.conf import settings
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
-from django.core.exceptions import ValidationError
+from django.core.exceptions import ValidationError, ObjectDoesNotExist
 from django.db import IntegrityError
 from django.shortcuts import redirect
 from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from razorpay.errors import SignatureVerificationError
 
@@ -41,6 +42,7 @@ def portal(request):
         login(request, user)
         return redirect('/')
 
+    # SIGNUP request
     name = request.POST['name']
     password = request.POST['password']
     password_confirmation = request.POST['password-confirmation']
@@ -49,9 +51,17 @@ def portal(request):
     username = email
     contact_number = request.POST['contact-no']
 
-    # SIGNUP Request
+    # Password confirmation
     if password != password_confirmation:
         return render(request, 'sign_in/sign.html', {'signup_error': 'Passwords did not match'})
+
+    # Throw away old temp user if payment never happened
+    try:
+        temp_user = User.objects.get(email=email)
+        if temp_user.participant.paid is False:
+            temp_user.delete()
+    except ObjectDoesNotExist:
+        pass
 
     if User.objects.filter(email=email):
         return render(request, 'sign_in/sign.html', {'signup_error': 'Email already registered'})
@@ -68,7 +78,6 @@ def portal(request):
         user_details = dict(
             username=username,
             first_name=name,
-            password=password,
             email=email,
         )
 
@@ -78,9 +87,10 @@ def portal(request):
         )
 
         user = User(**user_details)
+        user.set_password(password)
         participant = Participant(**participant_details)
 
-        # Validating model instances
+        # Validate model instances
         user.full_clean(validate_unique=True)
         participant.clean_fields(exclude=('user',))
 
@@ -103,7 +113,7 @@ def portal(request):
         general_details['amount']
 
     client_details = {
-        'receipt': f"{username}.1"
+        'receipt': f"{email[:35]}.1"
     }
 
     # Send order to Razorpay and receive id and status
@@ -118,13 +128,15 @@ def portal(request):
         context['order_id'] = order_id
         context['data_key'] = settings.PAY_KEY_ID
 
-        # Pass referrer id, skip serialisation
-        referrer_id = referrer.id if referrer else None
-        request.session['new_user'] = (user_details, contact_number, referrer_id)
+        # Create Participant and user
+        user.save()
+        participant.user = user
+        participant.paid = False
+        participant.order_id = order_id
+        participant.save()
 
         # Log before payments
-        user_log_details = {k: v for k, v in user_details.items() if k != 'password'}
-        pre_log = f"""BEFORE_PAYMENT: User Details: {user_log_details}\n Participant Details: {participant_details}"""
+        pre_log = f"""BEFORE_PAYMENT: User Details: {user_details}\n Participant Details: {participant_details}"""
         logger.info(pre_log)
 
         # Order payment
@@ -134,6 +146,7 @@ def portal(request):
 
 
 @require_http_methods(["POST"])
+@csrf_exempt
 def payment_status(request):
     response = request.POST
 
@@ -143,23 +156,40 @@ def payment_status(request):
         'razorpay_signature': response['razorpay_signature'],
     }
 
-    user_details, contact_number, referrer_id = request.session['new_user']
-    referrer = TeamMember.objects.get(id=referrer_id) if referrer_id else None
-
-    user_log_details = {k: v for k, v in user_details.items() if k != 'password'}
-
-    info_log = f"""AFTER_PAYMENT: User Details: {user_log_details} \nContact Number: {contact_number} \nReferrer Id: {referrer_id} \n\
-    Razorpay details: {params_dict}"""
+    info_log = f"""AFTER_PAYMENT: Razorpay details: {params_dict}"""
 
     logger.info(info_log)
+    logger.info("If no AFTER_PAYMENT before this, SNAFU")
 
     # VERIFYING SIGNATURE
     try:
         status = client.utility.verify_payment_signature(params_dict)
+
+    # Invalid order/payment
     except SignatureVerificationError:
+        # Delete temp_user if it exists
+        try:
+            participant = Participant.objects.get(order_id=params_dict['razorpay_order_id'])
+
+            # Make sure it's not a malicious request to delete user
+            if participant.paid is False:
+                user = participant.user
+                user.delete()
+
+        except ObjectDoesNotExist:
+            pass
+
         return render(request, 'payments/order_summary.html', {'status': 'Payment Failed'})
 
-    user = User.objects.create_user(**user_details)
-    Participant.objects.create(contact_number=contact_number, referrer=referrer, user=user)
+    # Turn paid to true for Participant
+    try:
+        participant = Participant.objects.get(order_id=params_dict['razorpay_order_id'])
+        participant.paid = True
+        participant.save()
+
+    # TODO: Add message to user asking them to contact us
+    except ObjectDoesNotExist:
+        logger.error("SNAFU, Payment went through but user with order id doesn't exist")
+        return render(request, 'payments/order_summary.html', {'status': 'Payment Failed'})
 
     return render(request, 'payments/order_summary.html', {'status': 'Payment Successful'})

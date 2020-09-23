@@ -3,7 +3,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist, PermissionDenied
-from django.db.models import Count
+from django.db.models import Count, Q
 from django.shortcuts import render, redirect
 from django.views.decorators.clickjacking import xframe_options_sameorigin
 from django.views.decorators.http import require_http_methods
@@ -68,7 +68,7 @@ def teammember_dashboard(request, pk):
 
     try:
         user = User.objects.get(id=pk)
-        participants = user.teammember.participant_set.all()
+        participants = user.teammember.participant_set.filter(paid=True)
         referral_count = participants.count()
     except ObjectDoesNotExist:
         print('fucked backwards')
@@ -96,9 +96,10 @@ def logoutuser(request):
 
 @staff_member_required
 def admindashboard(request):
-    teammembers = TeamMember.objects.annotate(referrals=Count('participant'))
-    total_participants = Participant.objects.count()
-    nonreferral_participants = Participant.objects.filter(referrer=None).count()
+    teammembers = TeamMember.objects.annotate(referrals=Count('participant', filter=Q(participant__paid=True)))
+    all_participants = Participant.filter_paid()
+    total_participants = all_participants.count()
+    nonreferral_participants = all_participants.filter(referrer=None).count()
     total_referrals = total_participants - nonreferral_participants
 
     return render(request, 'home/adminDashboard.html', dict(

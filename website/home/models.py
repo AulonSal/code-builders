@@ -16,9 +16,15 @@ class Participant(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     referrer = models.ForeignKey(TeamMember, on_delete=models.SET_NULL, null=True, blank=True)
     contact_number = PhoneNumberField()
+    paid = models.BooleanField(null=True, blank=True)
+    order_id = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return f"{self.user.first_name}"
+
+    @classmethod
+    def filter_paid(cls):
+        return cls.objects.filter(paid=True)
 
 
 class Announcement(models.Model):
